@@ -6,17 +6,24 @@ use think\Validate;
 class UserValidate extends Validate
 {
     protected $rule = [
-        'username'   => '',
-        'password'   => '', 
-        'role'       => '', 
-        'name'       => '', 
-        'job_number' => '', 
-        'sex'        => '', 
-        'phone'      => '', 
-        'address'    => ''
+        'username'   => 'require',
+        'password'   => 'require', 
+        'role'       => 'require', 
+        'name'       => 'require', 
+        'job_number' => 'require', 
+        'sex'        => 'require', 
+        'phone'      => 'require', 
+        'address'    => 'require'
     ];
 
     protected $message  =   [
-        'id.require'   => 'Id is required.'
+        'username.require'   => 'username is required.',
+        'password.require'   => 'password is required.',
+        'role.require'   => 'role is required.',
+        'name.require'   => 'name is required.',
+        'job_number.require'   => 'job_number is required.',
+        'sex.require'   => 'sex is required.',
+        'phone.require'   => 'phone is required.',
+        'address.require'   => 'address is required.'
     ];
 }
