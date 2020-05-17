@@ -204,5 +204,23 @@ abstract class BaseController
     }
 
     // 分页列表模糊查询
-
+    protected function base_query($table, $data)
+    {
+        // 组装查询条件
+        $map = [];
+        foreach($data['data'] as $k => $v)
+        {
+            $mid = gettype($v) == 'string' ? 'like' : '='; 
+            if($mid == 'like')
+            {
+                $v = "%$v%";
+            }
+            array_push($map, [$k, $mid, $v]);
+        }
+        $list = Db::name($table)->where($map)->order('id', 'desc')->paginate([
+            'list_rows'=> $data['per_page'],
+            'page' => $data['page'],
+        ]);
+        return $this->success_msg($list, 'success');
+    }
 }
