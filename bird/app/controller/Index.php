@@ -23,9 +23,9 @@ class Index
         return view("/webapp/staff_info_manage");
     }
 
-    public function staff_info_add()
+    public function staff_info()
     {
-        return view("/webapp/staff_info_add");
+        return view("/webapp/staff_info");
     }
     
 }
