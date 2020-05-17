@@ -3,9 +3,7 @@
 namespace app\controller;
 
 use app\BaseController;
-use think\Request;
 use app\model\User;
-use app\validate\UserValidate;
 use app\validate\EditUserValidate;
 use app\validate\AddUserValidate;
 
@@ -60,6 +58,6 @@ class UserController extends BaseController
     // 模糊查询，分页
     public function query()
     {
-        
+        return $this->base_query($this->table, $this->request->post());
     }
 }
