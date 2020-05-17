@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="lib/html5shiv.js"></script>
+    <script type="text/javascript" src="lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>员工信息管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 人员管理 <span class="c-gray en">&gt;</span> 员工信息管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div id="readerList" class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+<!--			<a href="javascript:;" @click="member_del(-1)" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>-->
+			<a href="javascript:;" onclick="member_add('添加员工','staff-info-add.html?add=1','','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a></span>
+        <span class="r">共有数据：<strong>{{readers.length}}</strong> 条</span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="80">学号</th>
+                <th width="100">姓名</th>
+                <th width="40">性别</th>
+                <th width="90">电话号码</th>
+                <th>院系</th>
+                <th width="100">班级</th>
+                <th width="70">状态</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" v-for="(reader,index) in readers" :key="index">
+                <td><input type="checkbox" value="" name=""></td>
+                <td>{{reader.Id}}</td>
+                <td><u style="cursor:pointer" class="text-primary" @click="member_show(reader.Name,'member-show.html',index,'360','410')">{{reader.Name}}</u></td>
+                <td>{{reader.Sex}}</td>
+                <td>{{reader.Phone}}</td>
+                <td>{{reader.Department}}</td>
+                <td class="text-l">{{reader.Class}}</td>
+                <td class="td-status">
+                    <span class="label radius" :class="{'label-success': reader.Status==1, 'label-warning': reader.Status==0}">{{reader.reader_status}}</span>
+                </td>
+                <td class="td-manage">
+                    <a style="text-decoration:none" @click="member_stop(index)" href="javascript:;" title="停用" v-if="reader.Status==1"><i class="Hui-iconfont">&#xe631;</i></a>
+                    <a style="text-decoration:none" @click="member_stop(index)" href="javascript:;" title="启用" v-if="reader.Status==0"><i class="Hui-iconfont">&#xe6e1;</i></a>
+                    <a title="编辑" href="javascript:;" @click="member_edit('编辑','reader-add.html?update=1',index,'','420')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <!--					<a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a>-->
+                    <a title="删除" href="javascript:;" @click="member_del(index)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="static/js/vue.min.js"></script>
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    var mainVue = new Vue({
+        el: '#readerList',
+        data: {
+            readers: []
+        },
+        computed: {
+        },
+        methods: {
+            member_stop: function (index) {
+                var thisVue = this,
+                    action = '停用',
+                    actionStatus = 0;
+                if (this.readers[index].Status == 1) {
+                    action = '停用';
+                    actionStatus = 0;
+                } else if (this.readers[index].Status == 0) {
+                    action = '启用';
+                    actionStatus = 1;
+                }
+                layer.confirm('确认要'+ action + ' ' + thisVue.readers[index].Name + ' 的借阅权限吗？',function(){
+                    $.ajax({
+                        url: "/api/student/updateStatus?id=" + thisVue.readers[index].Id + '&status=' + actionStatus,
+                        type: 'GET',
+                        dateType: 'JSON',
+                        contentType: 'application/json',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function(data){
+                            data = JSON.parse(data);
+                            // console.log(data);
+                            if(data.status == 'ok'){
+                                layer.msg(action + '成功');
+                                thisVue.readers[index].Status = actionStatus;
+                                if (actionStatus == 0) {
+                                    thisVue.readers[index].reader_status = '已停用';
+                                } else if (actionStatus == 1) {
+                                    thisVue.readers[index].reader_status = '已启用';
+                                }
+                            }else{
+                                layer.alert(data.reason);
+                            }
+                        }
+                    });
+                });
+            },
+            member_edit: function(title,url,index,w,h) {
+                url += '&id=' + this.readers[index].Id + '&name=' + this.readers[index].Name + '&sex=' + this.readers[index].Sex +
+                    '&phone=' + this.readers[index].Phone + '&department=' + this.readers[index].Department + '&_class=' + this.readers[index].Class;
+                layer_show(title,url,w,h);
+            },
+            member_del: function (index) {
+                if (index == -1) {
+                    console.log(this.checkedBooks);
+                } else {
+                    console.log(this.readers[index].Id);
+                    var thisVue = this;
+                    layer.confirm('确认要删除 ' + thisVue.readers[index].Name + ' 吗？',function(index){
+                        $.ajax({
+                            url: "/api/student/delete?id=" + thisVue.readers[index].Id,
+                            type: 'GET',
+                            dateType: 'JSON',
+                            contentType: 'application/json',
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            success: function(data){
+                                data = JSON.parse(data);
+                                // console.log(data);
+                                if(data.status == 'ok'){
+                                    thisVue.readers.splice(index,1);
+                                }else{
+                                    layer.alert(data.reason);
+                                }
+                            }
+                        });
+                    });
+                }
+            },
+            member_show: function (title,url,index,w,h) {
+                url += '?id=' + this.readers[index].Id + '&name=' + this.readers[index].Name + '&sex=' + this.readers[index].Sex +
+                    '&phone=' + this.readers[index].Phone + '&department=' + this.readers[index].Department + '&_class=' +
+                    this.readers[index].Class + '&status=' + this.readers[index].reader_status;
+                layer_show(title,url,w,h);
+            }
+        },
+        mounted: function () { // 挂载结束状态
+            var thisVue = this;
+            $.ajax({
+                url: "/api/student",
+                type: 'GET',
+                dateType: 'JSON',
+                contentType: 'application/json',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(data){
+                    data = JSON.parse(data);
+                    // console.log(data);
+                    if(data.status == 'ok'){
+                        // 数据同步
+                        thisVue.readers = data.data.filter(function(item) {
+                            if (item.Status == '0') {
+                                item.reader_status = '已停用';
+                            } else if (item.Status == '1') {
+                                item.reader_status = '已启用';
+                            }
+                            return item;
+                        });
+                    }else{
+                        layer.alert(data.reason);
+                    }
+                }
+            });
+        },
+        updated: function () {
+            $('.table-sort').dataTable({
+                "retrieve": true,
+                "aaSorting": [[ 1, "asc" ]],//默认第几个排序
+                "bStateSave": true,//状态保存
+                "aoColumnDefs": [
+                    //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+                    {"orderable":false,"aTargets":[0,3,4,5,6,7,8]}// 制定列不参与排序
+                ]
+            });
+        }
+    });
+
+    $(function(){
+
+    });
+    /*用户-添加*/
+    function member_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+</script>
+</body>
+</html>
