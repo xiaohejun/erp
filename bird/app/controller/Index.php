@@ -20,22 +20,27 @@ class Index
 
     public function staff_manage()
     {
-        return view("/webapp/staff/staff_manage");
+        return view("/webapp/user/staff_manage");
     }
 
-    public function staff_info()
+    public function user_info()
     {
-        return view("/webapp/staff/staff_info");
+        return view("/webapp/user/user_info");
     }
 
     public function competitor_manage()
     {
-        return view("/webapp/competitor/competitor_manage");
+        return view("/webapp/company/competitor_manage");
     }
 
-    public function competitor_info()
+    public function customer_manage()
     {
-        return view("/webapp/competitor/competitor_info");
+        return view("/webapp/company/customer_manage");
+    }
+
+    public function company_info()
+    {
+        return view("/webapp/company/company_info");
     }
     
 }

@@ -42,12 +42,9 @@
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色：</label>
             <div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
-				<select id="role" name="role" class="select" disabled>
-					<option value="admin">管理员</option>
-					<option value="saler">销售管理员</option>
-					<option value="custom">客户</option>
-					<option value="staff">员工</option>
-					<option value="competitor" selected>竞争对手</option>
+				<select id="role" name="role" class="select">
+					<option value="custom" selected>客户</option>
+					<option value="competitor">竞争对手</option>
 				</select>
 				</span>
             </div>
@@ -86,7 +83,7 @@
             <label class="form-label col-xs-4 col-sm-3">简介：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <textarea id="summary" name="summary" cols="" rows="" class="textarea valid"></textarea>
-                <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+                <p class="textarea-numberbar"><em id="textNum" class="textarea-length">0</em>/150</p>
             </div>
         </div>
         <div class="row cl">
@@ -110,6 +107,15 @@
 <script type="text/javascript" src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
+    $('#summary').on("keyup",function(){
+        $('#textNum').text($('#summary').val().length);//这句是在键盘按下时，实时的显示字数
+        if($('#summary').val().length > 150){
+            $('#textNum').text(150);//长度大于100时0处显示的也只是100
+            $('#summary').val($('#summary').val().substring(0,150));//长度大于100时截取钱100个字符
+        }
+    });
+    $('#textNum').text($('#summary').val().length);//这句是在刷新的时候仍然显示字数
+
     $(function(){
         var action = '';
         var add= UrlParm.parm("add");
@@ -127,18 +133,19 @@
             old_legal = UrlParm.parm("legal"),
             old_grade = UrlParm.parm("grade"),
             old_summary = UrlParm.parm("summary");
+        $("#role").val(old_role);
         if (update != '' && typeof(update) != 'undefined') { // 修改信息
             action = 'UPDATE';
             $("#button").val('修改');
             $("#name").val(old_name);
             $("#nature").val(old_nature);
-            $("#role").val(old_role);
             $("#sum").val(old_sum);
             $("#money").val(old_money);
             $("#address").val(old_address);
             $("#legal").val(old_legal);
             $("#grade").val(old_grade);
             $("#summary").val(old_summary);
+            $('#textNum').text($('#summary').val().length);
         }
 
         /*$('.skin-minimal input').iCheck({
