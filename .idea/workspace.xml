@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04c8f887-ca74-4a6f-98dd-eb58ef878235" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bird/app/controller/Index.php" beforeDir="false" afterPath="$PROJECT_DIR$/bird/app/controller/Index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bird/view/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bird/view/webapp/staff_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/staff/staff_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bird/view/webapp/staff_info_manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/staff/staff_manage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bird/view/webapp/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/welcome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/competitor/competitor_manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/competitor/competitor_manage.html" afterDir="false" />
     </list>
     <list id="e5550bfa-ac6b-49c3-be75-0c6113f6d34c" name="Ignore Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -75,8 +70,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bird/view/webapp/competitor/competitor_manage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="62" column="45" lean-forward="true" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
+            <state relative-caret-position="399">
+              <caret line="186" column="61" lean-forward="true" selection-start-line="186" selection-start-column="61" selection-end-line="186" selection-end-column="61" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -204,7 +199,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589780062396" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589781114793" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -240,12 +235,12 @@
       <updated>1589692843391</updated>
       <workItem from="1589692844910" duration="2700000" />
       <workItem from="1589697917334" duration="13175000" />
-      <workItem from="1589717358691" duration="13944000" />
+      <workItem from="1589717358691" duration="14996000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29819000" />
+    <option name="totallyTimeSpent" value="30871000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -421,8 +416,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bird/view/webapp/competitor/competitor_manage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="62" column="45" lean-forward="true" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
+        <state relative-caret-position="399">
+          <caret line="186" column="61" lean-forward="true" selection-start-line="186" selection-start-column="61" selection-end-line="186" selection-end-column="61" />
           <folding>
             <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>

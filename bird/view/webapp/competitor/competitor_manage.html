@@ -113,7 +113,7 @@
                     }
                 };
                 if (typeof (name) != "undefined") {
-                    data.data.name = name;
+                    a_data.data.name = name;
                 }
                 // console.log(a_data);
                 var thisVue = this;
@@ -125,7 +125,6 @@
                     success: function(data){
                         // console.log(data);
                         if(data.status == 'success'){
-                            // 数据同步
                             thisVue.members = data.data.data;
                         }else{
                             layer.alert(data.msg);
@@ -180,12 +179,16 @@
             this.get_list();
         },
         updated: function () {
+            var thisVue = this;
             $('#memberTable').DataTable({
                 retrieve: true,
-                aaSorting: [[ 1, "asc" ]],//默认第几个排序
-                bStateSave: true,//状态保存
+                bFilter: false, // 不使用过滤功能
+                bLengthChange: false, // 用户不可改变每页显示数量
+                iDisplayLength: thisVue.v_per_page, // 每页显示数据
+                aaSorting: [[ 1, "asc" ]], // 默认第几个排序
+                bStateSave: true, // 状态保存
                 aoColumnDefs: [
-                    //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+                    //{"bVisible": false, "aTargets": [ 3 ]} // 控制列的隐藏显示
                     {"orderable":false,"aTargets":[0,2,3,6,7,9,10]}// 制定列不参与排序
                 ]
             });
@@ -201,8 +204,10 @@
     }
     /*用户-查询*/
     function member_search(){
-        if ($("#name").val() == "" && $("#job_number").val() == "") {
-
+        if ($("#name").val() == "") {
+            mainVue.get_list();
+        } else {
+            mainVue.get_list($("#name").val());
         }
     }
 </script>
