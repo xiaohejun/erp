@@ -1,0 +1,244 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <title>添加竞争对手信息</title>
+</head>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-item-info">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" id="name" name="name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属公司：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" id="nature" name="nature">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+				<select id="role" name="role" class="select" disabled>
+					<option value="admin">管理员</option>
+					<option value="saler">销售管理员</option>
+					<option value="custom">客户</option>
+					<option value="staff">员工</option>
+					<option value="competitor" selected>竞争对手</option>
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>总数：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" id="sum" name="sum">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>资产：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" id="money" name="money">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" name="address" id="address">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>法人：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" name="legal" id="legal">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>等级：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" id="grade" name="grade">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">简介：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea id="summary" name="summary" cols="" rows="" class="textarea valid"></textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" id="button" value="添加">
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/js/getUrlParam.js"></script>
+<script type="text/javascript" src="/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var action = '';
+        var add= UrlParm.parm("add");
+        if (add != '' && typeof(add) != 'undefined') { // 添加
+            action = 'ADD';
+        }
+        var update= UrlParm.parm("update"),
+            old_id = UrlParm.parm("id"),
+            old_name = UrlParm.parm("name"),
+            old_nature = UrlParm.parm("nature"),
+            old_role = UrlParm.parm("role"),
+            old_sum = UrlParm.parm("sum"),
+            old_money = UrlParm.parm("money"),
+            old_address = UrlParm.parm("address"),
+            old_legal = UrlParm.parm("legal"),
+            old_grade = UrlParm.parm("grade"),
+            old_summary = UrlParm.parm("summary");
+        if (update != '' && typeof(update) != 'undefined') { // 修改信息
+            action = 'UPDATE';
+            $("#button").val('修改');
+            $("#name").val(old_name);
+            $("#nature").val(old_nature);
+            $("#role").val(old_role);
+            $("#sum").val(old_sum);
+            $("#money").val(old_money);
+            $("#address").val(old_address);
+            $("#legal").val(old_legal);
+            $("#grade").val(old_grade);
+            $("#summary").val(old_summary);
+        }
+
+        /*$('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });*/
+
+        $("#form-item-info").validate({
+            rules:{
+                name: {
+                    required:true,
+                    minlength:2,
+                    maxlength:16
+                },
+                nature:{
+                    required:true,
+                    maxlength:32
+                },
+                role:{
+                    required:true
+                },
+                sum:{
+                    required:true,
+                },
+                money:{
+                    required:true,
+                },
+                address:{
+                    required:true
+                },
+                legal:{
+                    required:true,
+                },
+                grade:{
+                    required:true
+                },
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(){
+                var a_data = {
+                    "name": $("#name").val(),
+                    "nature": $("#nature").val(),
+                    "role": $("#role option:selected").val(),
+                    "sum": $("#sum").val(),
+                    "money": $("#money").val(),
+                    "address": $("#address").val(),
+                    "legal": $("#legal").val(),
+                    "grade" : $("#grade").val(),
+                    "summary" : $("#summary").val()
+                };
+                // console.log(a_data);
+                if (action == 'ADD') { // 添加
+                    $.ajax({
+                        url: "http://localhost:8000/companycontroller/add",
+                        type: 'POST',
+                        dateType: 'JSON',
+                        data: a_data,
+                        success: function(data){
+                            // console.log(data);
+                            if(data.status == 'success'){
+                                layer.msg('添加成功');
+                                setTimeout(function(){
+                                    parent.location.reload();
+                                    // var index = parent.layer.getFrameIndex(window.name);
+                                    //parent.$('.btn-refresh').click();
+                                    // parent.window.mainVue.get_list();
+                                    // parent.layer.close(index);
+                                },800)
+                            }else{
+                                layer.alert(data.msg);
+                            }
+                        }
+                    });
+                } else if (action == 'UPDATE') { // 修改
+                    a_data.id = old_id;
+                    $.ajax({
+                        url: "http://localhost:8000/companycontroller/edit",
+                        type: 'POST',
+                        dateType: 'JSON',
+                        data: a_data,
+                        success: function(data){
+                            // console.log(data);
+                            if(data.status == 'success'){
+                                layer.msg('修改成功');
+                                setTimeout(function(){
+                                    parent.location.reload();
+                                },800)
+                            }else{
+                                layer.alert(data.msg);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

@@ -23,46 +23,49 @@
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 人员管理 <span class="c-gray en">&gt;</span> 员工信息管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
-<div id="readerList" class="page-container">
+<div id="memberList" class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
 <!--			<a href="javascript:;" @click="member_del(-1)" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>-->
 			<a href="javascript:;" onclick="member_add('添加员工','staff_info.html?add=1','','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a>
 			<a href="javascript:;" onclick="member_search()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe665;</i> 查询员工</a>
             <input type="text" name="name" id="name" placeholder=" 员工姓名查询" style="width:120px" class="input-text">
-            <input type="text" name="job_number" id="job_number" placeholder=" 员工号查询" style="width:120px" class="input-text"></span>
-        <span class="r">共有数据：<strong>{{readers.length}}</strong> 条</span> </div>
+            <input type="text" name="job_number" id="job_number" placeholder=" 员工号查询" style="width:120px" class="input-text">
+        </span>
+        <span class="r">共有数据：<strong>{{members.length}}</strong> 条</span> </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
             <tr class="text-c">
                 <th width="25"><input type="checkbox" name="" value=""></th>
-                <th width="80">学号</th>
-                <th width="100">姓名</th>
-                <th width="40">性别</th>
-                <th width="90">电话号码</th>
-                <th>院系</th>
-                <th width="100">班级</th>
-                <th width="70">状态</th>
-                <th width="100">操作</th>
+                <th width="30">ID</th>
+                <!--<th width="70">角色</th>-->
+                <th width="80">姓名</th>
+                <th width="90">所属</th>
+                <th width="80">总额</th>
+                <th width="90">金额</th>
+                <th width="90">地址</th>
+                <th width="60">法人</th>
+                <th width="40">等级</th>
+                <th>简介</th>
+                <th width="50">操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="text-c" v-for="(reader,index) in readers" :key="index">
+            <tr class="text-c" v-for="(item,index) in members" :key="index">
                 <td><input type="checkbox" value="" name=""></td>
-                <td>{{reader.Id}}</td>
-                <td><u style="cursor:pointer" class="text-primary" @click="member_show(reader.Name,'member-show.html',index,'360','410')">{{reader.Name}}</u></td>
-                <td>{{reader.Sex}}</td>
-                <td>{{reader.Phone}}</td>
-                <td>{{reader.Department}}</td>
-                <td class="text-l">{{reader.Class}}</td>
-                <td class="td-status">
-                    <span class="label radius" :class="{'label-success': reader.Status==1, 'label-warning': reader.Status==0}">{{reader.reader_status}}</span>
-                </td>
+                <td>{{item.id}}</td>
+                <!--<td>{{item.role}}</td>-->
+                <td>{{item.name}}</td>
+                <td>{{item.nature}}</td>
+                <td>{{item.sum}}</td>
+                <td>{{item.money}}</td>
+                <td>{{item.address}}</td>
+                <td>{{item.legal}}</td>
+                <td>{{item.grade}}</td>
+                <td>{{item.summary}}</td>
                 <td class="td-manage">
-                    <a style="text-decoration:none" @click="member_stop(index)" href="javascript:;" title="停用" v-if="reader.Status==1"><i class="Hui-iconfont">&#xe631;</i></a>
-                    <a style="text-decoration:none" @click="member_stop(index)" href="javascript:;" title="启用" v-if="reader.Status==0"><i class="Hui-iconfont">&#xe6e1;</i></a>
-                    <a title="编辑" href="javascript:;" @click="member_edit('编辑','reader-add.html?update=1',index,'','420')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="修改" href="javascript:;" @click="member_edit('编辑','reader-add.html?update=1',index,'','420')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
                     <!--					<a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a>-->
                     <a title="删除" href="javascript:;" @click="member_del(index)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
                 </td>
@@ -84,13 +87,47 @@
 <script type="text/javascript" src="/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
     var mainVue = new Vue({
-        el: '#readerList',
+        el: '#memberList',
         data: {
-            readers: []
+            v_page: 1,
+            v_per_page: 10,
+            members: []
         },
         computed: {
         },
         methods: {
+            get_list: function (name, job_number) {
+                var a_data = {
+                    "page": this.v_page,
+                    "per_page": this.v_per_page,
+                    "data": {
+                        "name": ""
+                    }
+                };
+                if (typeof (name) != "undefined") {
+                    data.data.name = name;
+                }
+                if (typeof (job_number) != "undefined") {
+                    data.data.job_number = job_number;
+                }
+                console.log(a_data);
+                var thisVue = this;
+                $.ajax({
+                    url: "http://localhost:8000/companycontroller/query",
+                    type: 'POST',
+                    dateType: 'JSON',
+                    data: a_data,
+                    success: function(data){
+                        console.log(data);
+                        if(data.status == 'success'){
+                            // 数据同步
+                            thisVue.members = data.data.data;
+                        }else{
+                            layer.alert(data.msg);
+                        }
+                    }
+                });
+            },
             member_stop: function (index) {
                 var thisVue = this,
                     action = '停用',
@@ -170,33 +207,7 @@
             }
         },
         mounted: function () { // 挂载结束状态
-            var thisVue = this;
-            $.ajax({
-                url: "/api/student",
-                type: 'GET',
-                dateType: 'JSON',
-                contentType: 'application/json',
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(data){
-                    data = JSON.parse(data);
-                    // console.log(data);
-                    if(data.status == 'ok'){
-                        // 数据同步
-                        thisVue.readers = data.data.filter(function(item) {
-                            if (item.Status == '0') {
-                                item.reader_status = '已停用';
-                            } else if (item.Status == '1') {
-                                item.reader_status = '已启用';
-                            }
-                            return item;
-                        });
-                    }else{
-                        layer.alert(data.reason);
-                    }
-                }
-            });
+            this.get_list();
         },
         updated: function () {
             $('.table-sort').dataTable({
@@ -205,7 +216,7 @@
                 "bStateSave": true,//状态保存
                 "aoColumnDefs": [
                     //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                    {"orderable":false,"aTargets":[0,3,4,5,6,7,8]}// 制定列不参与排序
+                    {"orderable":false,"aTargets":[0,2,3,6,7,9,10]}// 制定列不参与排序
                 ]
             });
         }

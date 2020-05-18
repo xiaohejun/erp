@@ -3,13 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="04c8f887-ca74-4a6f-98dd-eb58ef878235" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bird-web/webapp/staff-info-add.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird-web/webapp/staff-info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bird-web/webapp/staff-info-manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird-web/webapp/staff-info-manage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bird/app/controller/Index.php" beforeDir="false" afterPath="$PROJECT_DIR$/bird/app/controller/Index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bird/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/bird/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bird/view/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bird/view/webapp/staff_info_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/staff_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bird/view/webapp/staff_info_manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/staff_info_manage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/staff_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/staff/staff_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/staff_info_manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/staff/staff_manage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/welcome.html" afterDir="false" />
     </list>
     <list id="e5550bfa-ac6b-49c3-be75-0c6113f6d34c" name="Ignore Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,8 +35,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bird/app/controller/Index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+            <state relative-caret-position="462">
+              <caret line="37" column="58" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -46,17 +44,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bird/view/webapp/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+            <state relative-caret-position="266">
+              <caret line="77" column="21" selection-start-line="77" selection-start-column="21" selection-end-line="77" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bird/view/webapp/staff_info_manage.html">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bird/view/webapp/staff/staff_manage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-570">
-              <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+            <state relative-caret-position="-2554">
+              <caret line="33" column="15" selection-start-line="33" selection-start-column="15" selection-end-line="33" selection-end-column="15" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#1;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -66,10 +64,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bird/view/webapp/staff_info.html">
+        <entry file="file://$PROJECT_DIR$/bird/view/webapp/staff/staff_info.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="24" column="7" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+            <state relative-caret-position="532">
+              <caret line="49" column="60" selection-start-line="49" selection-start-column="60" selection-end-line="49" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bird/view/webapp/competitor/competitor_manage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="62" column="45" lean-forward="true" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
+              <folding>
+                <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bird/view/webapp/competitor/competitor_info.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3382">
+              <caret line="217" column="54" selection-start-line="217" selection-start-column="54" selection-end-line="217" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -83,6 +102,14 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>favicon</find>
+      <find>reader</find>
+      <find>员工</find>
+      <find>member_show</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -95,10 +122,15 @@
         <option value="$PROJECT_DIR$/bird-web/webapp/staff-info-manage.html" />
         <option value="$PROJECT_DIR$/bird-web/webapp/staff-info.html" />
         <option value="$PROJECT_DIR$/bird/view/webapp/staff_info_add.html" />
-        <option value="$PROJECT_DIR$/bird/app/controller/Index.php" />
         <option value="$PROJECT_DIR$/bird/view/webapp/staff_info.html" />
+        <option value="$PROJECT_DIR$/bird/view/webapp/welcome.html" />
         <option value="$PROJECT_DIR$/bird/view/webapp/staff_info_manage.html" />
+        <option value="$PROJECT_DIR$/bird/app/controller/Index.php" />
         <option value="$PROJECT_DIR$/bird/view/webapp/index.html" />
+        <option value="$PROJECT_DIR$/bird/view/webapp/staff/staff_manage.html" />
+        <option value="$PROJECT_DIR$/bird/view/webapp/staff/staff_info.html" />
+        <option value="$PROJECT_DIR$/bird/view/webapp/competitor/competitor_info.html" />
+        <option value="$PROJECT_DIR$/bird/view/webapp/competitor/competitor_manage.html" />
       </list>
     </option>
   </component>
@@ -143,6 +175,22 @@
             <path>
               <item name="erp" type="b2602c69:ProjectViewProjectNode" />
               <item name="erp" type="462c0819:PsiDirectoryNode" />
+              <item name="bird" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="competitor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="erp" type="462c0819:PsiDirectoryNode" />
+              <item name="bird" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="staff" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="erp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="erp" type="462c0819:PsiDirectoryNode" />
               <item name="bird-web" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -156,11 +204,16 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589716711018" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589780062396" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Studio\Development\IDEA\erp\bird\view\webapp\staff" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -187,12 +240,12 @@
       <updated>1589692843391</updated>
       <workItem from="1589692844910" duration="2700000" />
       <workItem from="1589697917334" duration="13175000" />
-      <workItem from="1589717358691" duration="697000" />
+      <workItem from="1589717358691" duration="13944000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16572000" />
+    <option name="totallyTimeSpent" value="29819000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -320,34 +373,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/welcome.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3705">
+          <caret line="195" column="37" selection-start-line="195" selection-start-column="37" selection-end-line="195" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bird/app/controller/Index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+        <state relative-caret-position="462">
+          <caret line="37" column="58" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bird/view/webapp/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+        <state relative-caret-position="266">
+          <caret line="77" column="21" selection-start-line="77" selection-start-column="21" selection-end-line="77" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bird/view/webapp/staff_info.html">
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/staff/staff_info.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="24" column="7" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+        <state relative-caret-position="532">
+          <caret line="49" column="60" selection-start-line="49" selection-start-column="60" selection-end-line="49" selection-end-column="60" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bird/view/webapp/staff_info_manage.html">
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/staff/staff_manage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-570">
-          <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+        <state relative-caret-position="-2554">
+          <caret line="33" column="15" selection-start-line="33" selection-start-column="15" selection-end-line="33" selection-end-column="15" />
           <folding>
             <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#1;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/competitor/competitor_info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3382">
+          <caret line="217" column="54" selection-start-line="217" selection-start-column="54" selection-end-line="217" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/competitor/competitor_manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="62" column="45" lean-forward="true" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
