@@ -26,47 +26,49 @@
 <div id="memberList" class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
-<!--			<a href="javascript:;" @click="member_del(-1)" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>-->
-			<a href="javascript:;" onclick="member_add('添加员工','staff_info.html?add=1','','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a>
+			<a href="javascript:;" onclick="member_add('添加','user_info.html?add=1&role=staff','','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a>
 			<a href="javascript:;" onclick="member_search()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe665;</i> 查询员工</a>
-            <input type="text" name="name" id="name" placeholder=" 员工姓名查询" style="width:120px" class="input-text">
-            <input type="text" name="job_number" id="job_number" placeholder=" 员工号查询" style="width:120px" class="input-text">
+            <input type="text" name="name" id="name" placeholder="员工姓名查询" style="width:140px" class="input-text">
+            <input type="text" name="job_number" id="job_number" placeholder="员工号查询" style="width:140px" class="input-text">
         </span>
-        <span class="r">共有数据：<strong>{{members.length}}</strong> 条</span> </div>
+        <span class="r">
+            <a href="javascript:;" @click="member_del()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+            显示数据：<strong>{{members.length}}</strong> 条， 共有数据：<strong>{{total}}</strong> 条
+        </span>
+    </div>
     <div class="mt-20">
-        <table class="table table-border table-bordered table-hover table-bg table-sort">
+        <table id="memberTable" class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
             <tr class="text-c">
-                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="25">
+                    <!--<input type="checkbox" v-model="selectAll" @click="membersSelectAll()">-->
+                </th>
                 <th width="30">ID</th>
                 <!--<th width="70">角色</th>-->
+                <th width="100">用户名</th>
+                <th width="100">密码</th>
                 <th width="80">姓名</th>
-                <th width="90">所属</th>
-                <th width="80">总额</th>
-                <th width="90">金额</th>
-                <th width="90">地址</th>
-                <th width="60">法人</th>
-                <th width="40">等级</th>
-                <th>简介</th>
+                <th width="90">员工号</th>
+                <th width="40">性别</th>
+                <th width="100">电话</th>
+                <th>地址</th>
                 <th width="50">操作</th>
             </tr>
             </thead>
             <tbody>
             <tr class="text-c" v-for="(item,index) in members" :key="index">
-                <td><input type="checkbox" value="" name=""></td>
+                <td><input type="checkbox" :id="'item'+item.id" :value="item.id" v-model="checkedItems"></td>
                 <td>{{item.id}}</td>
                 <!--<td>{{item.role}}</td>-->
+                <td>{{item.username}}</td>
+                <td>{{item.password}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.nature}}</td>
-                <td>{{item.sum}}</td>
-                <td>{{item.money}}</td>
+                <td>{{item.job_number}}</td>
+                <td>{{item.sex}}</td>
+                <td>{{item.phone}}</td>
                 <td>{{item.address}}</td>
-                <td>{{item.legal}}</td>
-                <td>{{item.grade}}</td>
-                <td>{{item.summary}}</td>
                 <td class="td-manage">
-                    <a title="修改" href="javascript:;" @click="member_edit('编辑','reader-add.html?update=1',index,'','420')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-                    <!--					<a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a>-->
+                    <a title="修改" href="javascript:;" @click="member_edit('修改','user_info.html?update=1',index,'','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
                     <a title="删除" href="javascript:;" @click="member_del(index)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
                 </td>
             </tr>
@@ -86,14 +88,20 @@
 <script type="text/javascript" src="/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-    var mainVue = new Vue({
+    window.mainVue = new Vue({
         el: '#memberList',
         data: {
+            total: 0,
             v_page: 1,
-            v_per_page: 10,
-            members: []
+            v_per_page: 5,
+            v_current_page: 1,
+            v_last_page: 1,
+            members: [],
+            checkedItems: []
         },
         computed: {
+        },
+        watch: {
         },
         methods: {
             get_list: function (name, job_number) {
@@ -101,26 +109,30 @@
                     "page": this.v_page,
                     "per_page": this.v_per_page,
                     "data": {
-                        "name": ""
+                        "role": "staff",
+                        "name": "",
+                        "job_number": ""
                     }
                 };
-                if (typeof (name) != "undefined") {
-                    data.data.name = name;
+                if (name != "" && typeof (name) != "undefined") {
+                    a_data.data.name = name;
                 }
-                if (typeof (job_number) != "undefined") {
-                    data.data.job_number = job_number;
+                if (job_number != "" && typeof (job_number) != "undefined") {
+                    a_data.data.job_number = job_number;
                 }
-                console.log(a_data);
+                // console.log(a_data);
                 var thisVue = this;
                 $.ajax({
-                    url: "http://localhost:8000/companycontroller/query",
+                    url: "http://localhost:8000/usercontroller/query",
                     type: 'POST',
                     dateType: 'JSON',
                     data: a_data,
                     success: function(data){
-                        console.log(data);
+                        // console.log(data);
                         if(data.status == 'success'){
-                            // 数据同步
+                            thisVue.total = data.data.total;
+                            thisVue.v_current_page = data.data.current_page;
+                            thisVue.v_last_page = data.data.last_page;
                             thisVue.members = data.data.data;
                         }else{
                             layer.alert(data.msg);
@@ -128,96 +140,86 @@
                     }
                 });
             },
-            member_stop: function (index) {
-                var thisVue = this,
-                    action = '停用',
-                    actionStatus = 0;
-                if (this.readers[index].Status == 1) {
-                    action = '停用';
-                    actionStatus = 0;
-                } else if (this.readers[index].Status == 0) {
-                    action = '启用';
-                    actionStatus = 1;
+            member_edit: function(title,url,index,w,h) {
+                url += '&id=' + this.members[index].id + '&username=' + this.members[index].username + '&password=' + this.members[index].password +
+                    '&role=' + this.members[index].role + '&name=' + this.members[index].name + '&job_number=' + this.members[index].job_number +
+                    '&sex=' + this.members[index].sex + '&phone=' + this.members[index].phone + '&address=' + this.members[index].address;
+                layer_show(title,url,w,h);
+            },
+            member_del: function (index) {
+                var ids = [];
+                if (typeof (index) == "undefined") {
+                    if (this.checkedItems.length == 0) {
+                        layer.alert("请选择删除的目标");
+                        return;
+                    } else {
+                        ids = this.checkedItems;
+                    }
+                } else {
+                    ids = [this.members[index].id];
                 }
-                layer.confirm('确认要'+ action + ' ' + thisVue.readers[index].Name + ' 的借阅权限吗？',function(){
+                // console.log(ids);
+                var thisVue = this, thisIndex = index;
+                layer.confirm('确认要删除吗？',function(index){
                     $.ajax({
-                        url: "/api/student/updateStatus?id=" + thisVue.readers[index].Id + '&status=' + actionStatus,
-                        type: 'GET',
+                        url: "http://localhost:8000/usercontroller/delete",
+                        type: 'POST',
                         dateType: 'JSON',
-                        contentType: 'application/json',
-                        xhrFields: {
-                            withCredentials: true
+                        data: {
+                            "ids": ids
                         },
                         success: function(data){
-                            data = JSON.parse(data);
                             // console.log(data);
-                            if(data.status == 'ok'){
-                                layer.msg(action + '成功');
-                                thisVue.readers[index].Status = actionStatus;
-                                if (actionStatus == 0) {
-                                    thisVue.readers[index].reader_status = '已停用';
-                                } else if (actionStatus == 1) {
-                                    thisVue.readers[index].reader_status = '已启用';
-                                }
+                            if(data.status == 'success'){
+                                // thisVue.members.splice(thisIndex,1);
+                                thisVue.get_list();
+                                layer.close(index);
                             }else{
-                                layer.alert(data.reason);
+                                layer.alert(data.msg);
                             }
                         }
                     });
                 });
-            },
-            member_edit: function(title,url,index,w,h) {
-                url += '&id=' + this.readers[index].Id + '&name=' + this.readers[index].Name + '&sex=' + this.readers[index].Sex +
-                    '&phone=' + this.readers[index].Phone + '&department=' + this.readers[index].Department + '&_class=' + this.readers[index].Class;
-                layer_show(title,url,w,h);
-            },
-            member_del: function (index) {
-                if (index == -1) {
-                    console.log(this.checkedBooks);
-                } else {
-                    console.log(this.readers[index].Id);
-                    var thisVue = this;
-                    layer.confirm('确认要删除 ' + thisVue.readers[index].Name + ' 吗？',function(index){
-                        $.ajax({
-                            url: "/api/student/delete?id=" + thisVue.readers[index].Id,
-                            type: 'GET',
-                            dateType: 'JSON',
-                            contentType: 'application/json',
-                            xhrFields: {
-                                withCredentials: true
-                            },
-                            success: function(data){
-                                data = JSON.parse(data);
-                                // console.log(data);
-                                if(data.status == 'ok'){
-                                    thisVue.readers.splice(index,1);
-                                }else{
-                                    layer.alert(data.reason);
-                                }
-                            }
-                        });
-                    });
-                }
-            },
-            member_show: function (title,url,index,w,h) {
-                url += '?id=' + this.readers[index].Id + '&name=' + this.readers[index].Name + '&sex=' + this.readers[index].Sex +
-                    '&phone=' + this.readers[index].Phone + '&department=' + this.readers[index].Department + '&_class=' +
-                    this.readers[index].Class + '&status=' + this.readers[index].reader_status;
-                layer_show(title,url,w,h);
             }
         },
         mounted: function () { // 挂载结束状态
             this.get_list();
         },
         updated: function () {
-            $('.table-sort').dataTable({
-                "retrieve": true,
-                "aaSorting": [[ 1, "asc" ]],//默认第几个排序
-                "bStateSave": true,//状态保存
-                "aoColumnDefs": [
-                    //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                    {"orderable":false,"aTargets":[0,2,3,6,7,9,10]}// 制定列不参与排序
-                ]
+            var thisVue = this;
+            $('#memberTable').DataTable({
+                retrieve: true,
+                // bStateSave: true, // 状态保存
+                bInfo: false,
+                bFilter: false, // 不使用过滤功能
+                bLengthChange: false, // 用户不可改变每页显示数量
+                iDisplayLength: thisVue.v_per_page, // 每页显示数据
+                ordering: false,
+                // aaSorting: [[ 1, "asc" ]], // 默认第几个排序
+                // aoColumnDefs: [
+                //     //{"bVisible": false, "aTargets": [ 3 ]} // 控制列的隐藏显示
+                //     {"orderable":false,"aTargets":[0,2,3,6,7,9,10]}// 制定列不参与排序
+                // ],
+                "drawCallback": function(settings){
+                    document.getElementById('memberTable_previous').addEventListener('click',function () {
+                        if (thisVue.v_current_page > 1) {
+                            thisVue.v_page--;
+                            thisVue.get_list();
+                            document.getElementById("memberTable_paginate")
+                                .getElementsByTagName("span")[0]
+                                .getElementsByTagName("a")[0].innerText--;
+                        }
+                    });
+                    document.getElementById('memberTable_next').addEventListener('click',function () {
+                        if (thisVue.v_current_page < thisVue.v_last_page) {
+                            thisVue.v_page++;
+                            thisVue.get_list();
+                            document.getElementById("memberTable_paginate")
+                                .getElementsByTagName("span")[0]
+                                .getElementsByTagName("a")[0].innerText++;
+                        }
+                    });
+                }
             });
         }
     });
@@ -231,9 +233,7 @@
     }
     /*用户-查询*/
     function member_search(){
-        if ($("#name").val() == "" && $("#job_number").val() == "") {
-
-        }
+        mainVue.get_list($("#name").val(), $("#job_number").val());
     }
 </script>
 </body>
