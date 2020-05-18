@@ -23,6 +23,11 @@ class Index
         return view("/webapp/user/staff_manage");
     }
 
+    public function saler_manage()
+    {
+        return view("/webapp/user/saler_manage");
+    }
+
     public function user_info()
     {
         return view("/webapp/user/user_info");
