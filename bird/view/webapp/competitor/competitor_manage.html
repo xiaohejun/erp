@@ -33,7 +33,7 @@
         </span>
         <span class="r">
             <a href="javascript:;" @click="member_del()" class="btn btn-danger radius"><i class="Hui-iconfont"></i> 批量删除</a>
-            共有数据：<strong>{{members.length}}</strong> 条
+            显示数据：<strong>{{members.length}}</strong> 条， 共有数据：<strong>{{total}}</strong> 条
         </span>
     </div>
     <div class="mt-20">
@@ -93,9 +93,11 @@
     window.mainVue = new Vue({
         el: '#memberList',
         data: {
-            selectAll: false,
+            total: 0,
             v_page: 1,
-            v_per_page: 10,
+            v_per_page: 5,
+            v_current_page: 1,
+            v_last_page: 1,
             members: [],
             checkedItems: []
         },
@@ -125,6 +127,9 @@
                     success: function(data){
                         // console.log(data);
                         if(data.status == 'success'){
+                            thisVue.total = data.data.total;
+                            thisVue.v_current_page = data.data.current_page;
+                            thisVue.v_last_page = data.data.last_page;
                             thisVue.members = data.data.data;
                         }else{
                             layer.alert(data.msg);
@@ -140,6 +145,7 @@
                 layer_show(title,url,w,h);
             },
             member_del: function (index) {
+                console.log($('#memberTable').DataTable());
                 var ids = [];
                 if (typeof (index) == "undefined") {
                     if (this.checkedItems.length == 0) {
@@ -182,15 +188,37 @@
             var thisVue = this;
             $('#memberTable').DataTable({
                 retrieve: true,
+                // bStateSave: true, // 状态保存
+                bInfo: false,
                 bFilter: false, // 不使用过滤功能
                 bLengthChange: false, // 用户不可改变每页显示数量
                 iDisplayLength: thisVue.v_per_page, // 每页显示数据
-                aaSorting: [[ 1, "asc" ]], // 默认第几个排序
-                bStateSave: true, // 状态保存
-                aoColumnDefs: [
-                    //{"bVisible": false, "aTargets": [ 3 ]} // 控制列的隐藏显示
-                    {"orderable":false,"aTargets":[0,2,3,6,7,9,10]}// 制定列不参与排序
-                ]
+                ordering: false,
+                // aaSorting: [[ 1, "asc" ]], // 默认第几个排序
+                // aoColumnDefs: [
+                //     //{"bVisible": false, "aTargets": [ 3 ]} // 控制列的隐藏显示
+                //     {"orderable":false,"aTargets":[0,2,3,6,7,9,10]}// 制定列不参与排序
+                // ],
+                "drawCallback": function(settings){
+                    document.getElementById('memberTable_previous').addEventListener('click',function () {
+                        if (thisVue.v_current_page > 1) {
+                            thisVue.v_page--;
+                            thisVue.get_list();
+                            document.getElementById("memberTable_paginate")
+                                .getElementsByTagName("span")[0]
+                                .getElementsByTagName("a")[0].innerText--;
+                        }
+                    });
+                    document.getElementById('memberTable_next').addEventListener('click',function () {
+                        if (thisVue.v_current_page < thisVue.v_last_page) {
+                            thisVue.v_page++;
+                            thisVue.get_list();
+                            document.getElementById("memberTable_paginate")
+                                .getElementsByTagName("span")[0]
+                                .getElementsByTagName("a")[0].innerText++;
+                        }
+                    });
+                }
             });
         }
     });
