@@ -57,4 +57,9 @@ class Index
     {
         return view("/webapp/goods/goods_info");
     }
+
+    public function goods_bid()
+    {
+        return view("/webapp/goods/goods_bid");
+    }
 }

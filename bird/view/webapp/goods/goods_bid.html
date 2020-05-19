@@ -12,26 +12,23 @@
     <![endif]-->
     <link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.9/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
     <!--[if IE 6]>
     <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <title>竞争对手信息管理</title>
+    <title>货物竞价</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 人员管理 <span class="c-gray en">&gt;</span> 竞争对手信息管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div id="memberList" class="page-container">
-    <div class="cl pd-5 bg-1 bk-gray mt-20">
+    <div class="cl pd-5 bg-1 bk-gray">
 		<span class="l">
-			<a href="javascript:;" onclick="member_add('添加','company_info.html?add=1&role=competitor','','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加竞争对手</a>
-			<a href="javascript:;" onclick="member_search()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe665;</i> 查询竞争对手</a>
-            <input type="text" name="name" id="name" placeholder="企业名称查询" style="width:140px" class="input-text">
+			<a href="javascript:location.replace(location.href);" class="btn btn-success radius" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+			<a href="javascript:;" @click="member_add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe73a;</i> 竞价</a>
         </span>
         <span class="r">
-            <a href="javascript:;" @click="member_del()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
             显示数据：<strong>{{members.length}}</strong> 条， 共有数据：<strong>{{total}}</strong> 条
         </span>
     </div>
@@ -39,38 +36,29 @@
         <table id="memberTable" class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
             <tr class="text-c">
-                <th width="25">
+                <!--<th width="25">-->
                     <!--<input type="checkbox" v-model="selectAll" @click="membersSelectAll()">-->
-                </th>
+                <!--</th>-->
                 <th width="30">ID</th>
                 <!--<th width="70">角色</th>-->
-                <th width="80">企业名称</th>
-                <th width="90">企业性质</th>
-                <th width="80">交易总价</th>
-                <th width="90">注册资本</th>
-                <th width="90">所属企业地址</th>
-                <th width="110">所属企业法人代表</th>
-                <th width="40">等级</th>
-                <th>简介</th>
+                <th>名称</th>
+                <th>单价</th>
+                <th>总量</th>
+                <th>余量</th>
                 <th width="50">操作</th>
             </tr>
             </thead>
             <tbody>
             <tr class="text-c" v-for="(item,index) in members" :key="index">
-                <td><input type="checkbox" :id="'item'+item.id" :value="item.id" v-model="checkedItems"></td>
+                <!--<td><input type="checkbox" :id="'item'+item.id" :value="item.id" v-model="checkedItems"></td>-->
                 <td>{{item.id}}</td>
                 <!--<td>{{item.role}}</td>-->
                 <td>{{item.name}}</td>
-                <td>{{item.nature}}</td>
-                <td>{{item.sum}}</td>
-                <td>{{item.money}}</td>
-                <td>{{item.address}}</td>
-                <td>{{item.legal}}</td>
-                <td>{{item.grade}}</td>
-                <td>{{item.summary}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.total}}</td>
+                <td>{{item.remain}}</td>
                 <td class="td-manage">
-                    <a title="修改" href="javascript:;" @click="member_edit('修改','company_info.html?update=1',index,'','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-                    <a title="删除" href="javascript:;" @click="member_del(index)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    <a title="选定价格，生成合同" href="javascript:;" @click="member_select()" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe73a;</i></a>
                 </td>
             </tr>
             </tbody>
@@ -98,7 +86,6 @@
             v_current_page: 1,
             v_last_page: 1,
             members: [],
-            checkedItems: []
         },
         computed: {
         },
@@ -110,7 +97,6 @@
                     "page": this.v_page,
                     "per_page": this.v_per_page,
                     "data": {
-                        "role": "competitor",
                         "name": ""
                     }
                 };
@@ -120,7 +106,7 @@
                 // console.log(a_data);
                 var thisVue = this;
                 $.ajax({
-                    url: "http://localhost:8000/companycontroller/query",
+                    url: "http://localhost:8000/goodscontroller/query",
                     type: 'POST',
                     dateType: 'JSON',
                     data: a_data,
@@ -137,46 +123,17 @@
                     }
                 });
             },
-            member_edit: function(title,url,index,w,h) {
-                url += '&id=' + this.members[index].id + '&name=' + this.members[index].name + '&nature=' + this.members[index].nature +
-                    '&role=' + this.members[index].role + '&sum=' + this.members[index].sum + '&money=' + this.members[index].money +
-                    '&address=' + this.members[index].address + '&legal=' + this.members[index].legal + '&grade=' + this.members[index].grade +
-                    '&summary=' + this.members[index].summary;
-                layer_show(title,url,w,h);
+            member_add: function() {
+                layer.prompt({title: '请输入您的竞价单价', formType: 0}, function(text, index){
+                    layer.close(index);
+                    layer.msg(text);
+                });
             },
-            member_del: function (index) {
-                var ids = [];
-                if (typeof (index) == "undefined") {
-                    if (this.checkedItems.length == 0) {
-                        layer.alert("请选择删除的目标");
-                        return;
-                    } else {
-                        ids = this.checkedItems;
-                    }
-                } else {
-                    ids = [this.members[index].id];
-                }
-                // console.log(ids);
-                var thisVue = this, thisIndex = index;
-                layer.confirm('确认要删除吗？', {icon: 0, title:'提示'}, function(index){
-                    $.ajax({
-                        url: "http://localhost:8000/companycontroller/delete",
-                        type: 'POST',
-                        dateType: 'JSON',
-                        data: {
-                            "ids": ids
-                        },
-                        success: function(data){
-                            // console.log(data);
-                            if(data.status == 'success'){
-                                // thisVue.members.splice(thisIndex,1);
-                                thisVue.get_list();
-                                layer.close(index);
-                            }else{
-                                layer.alert(data.msg);
-                            }
-                        }
-                    });
+            member_select: function() {
+                layer.confirm('确定选择该价格并生成合同?', {icon: 3, title:'提示'}, function(index){
+                    //do something
+
+                    layer.close(index);
                 });
             }
         },
@@ -225,18 +182,6 @@
     $(function(){
 
     });
-    /*用户-添加*/
-    function member_add(title,url,w,h){
-        layer_show(title,url,w,h);
-    }
-    /*用户-查询*/
-    function member_search(){
-        if ($("#name").val() == "") {
-            mainVue.get_list();
-        } else {
-            mainVue.get_list($("#name").val());
-        }
-    }
 </script>
 </body>
 </html>

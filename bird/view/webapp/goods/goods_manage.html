@@ -12,7 +12,7 @@
     <![endif]-->
     <link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.9/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
     <!--[if IE 6]>
@@ -48,7 +48,7 @@
                 <th>单价</th>
                 <th>总量</th>
                 <th>余量</th>
-                <th width="50">操作</th>
+                <th width="70">操作</th>
             </tr>
             </thead>
             <tbody>
@@ -61,6 +61,7 @@
                 <td>{{item.total}}</td>
                 <td>{{item.remain}}</td>
                 <td class="td-manage">
+                    <a title="竞价" href="javascript:;" @click="member_bid(item.name+'竞价','goods_bid.html?update=1',index,'','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe73a;</i></a>
                     <a title="修改" href="javascript:;" @click="member_edit('修改','goods_info.html?update=1',index,'','320')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
                     <a title="删除" href="javascript:;" @click="member_del(index)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
                 </td>
@@ -86,7 +87,7 @@
         data: {
             total: 0,
             v_page: 1,
-            v_per_page: 5,
+            v_per_page: 10,
             v_current_page: 1,
             v_last_page: 1,
             members: [],
@@ -128,6 +129,11 @@
                     }
                 });
             },
+            member_bid: function(title,url,index,w,h) {
+                // url += '&id=' + this.members[index].id + '&name=' + this.members[index].name + '&price=' + this.members[index].price +
+                //     '&total=' + this.members[index].total + '&remain=' + this.members[index].remain;
+                layer_show(title,url,w,h);
+            },
             member_edit: function(title,url,index,w,h) {
                 url += '&id=' + this.members[index].id + '&name=' + this.members[index].name + '&price=' + this.members[index].price +
                     '&total=' + this.members[index].total + '&remain=' + this.members[index].remain;
@@ -147,7 +153,7 @@
                 }
                 // console.log(ids);
                 var thisVue = this, thisIndex = index;
-                layer.confirm('确认要删除吗？',function(index){
+                layer.confirm('确认要删除吗？', {icon: 0, title:'提示'}, function(index){
                     $.ajax({
                         url: "http://localhost:8000/goodscontroller/delete",
                         type: 'POST',
