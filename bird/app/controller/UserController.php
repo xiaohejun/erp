@@ -4,6 +4,7 @@ namespace app\controller;
 
 use app\BaseController;
 use app\model\User;
+use think\Facade\Db;
 use app\validate\EditUserValidate;
 use app\validate\AddUserValidate;
 
@@ -14,19 +15,16 @@ class UserController extends BaseController
 
     public function login()
     {   
-        $data = $this->request->post();
-        
-        print_r( $data);
-        // 构造json
-        // $data = [
-        //     'error' => 'None',
-        //     'data' => [
-        //         'email'    => 'thinkphp@qq.com',
-        //         'nickname '=> '流年',
-        //     ],
-        //     'msg' => 'None'
-        // ];
-        return json($data);
+        $data = $this->request->post();        
+        $username = $data["username"];
+        $password = $data["password"]; 
+        $res = Db::name('user')->where('username', $username)->findOrEmpty();
+        if($res != [] && $res['password'] == $password) {
+            $res['password'] = '';
+            session('userinfo', $res);
+            return $this->success_msg($res,  'login successful.');
+        }
+        return $this->info_msg([], 'Incorrect username or password.');
     }
 
     // 增加
