@@ -26,7 +26,7 @@
     <div class="cl pd-5 bg-1 bk-gray">
 		<span class="l">
 			<a href="javascript:location.replace(location.href);" class="btn btn-success radius" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
-			<a href="javascript:;" @click="member_add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe73a;</i> 竞价</a>
+			<a v-if="login_role=='custom'" href="javascript:;" @click="member_add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe73a;</i> 竞价</a>
         </span>
         <span class="r">
             显示数据：<strong>{{members.length}}</strong> 条， 共有数据：<strong>{{total}}</strong> 条
@@ -40,21 +40,19 @@
                     <!--<input type="checkbox" v-model="selectAll" @click="membersSelectAll()">-->
                 <!--</th>-->
                 <!--<th width="30">ID</th>-->
-                <!--<th width="70">角色</th>-->
-                <th>竞争者ID</th>
+                <th>竞争企业ID</th>
                 <th>竞价</th>
-                <th width="50">操作</th>
+                <th v-if="login_role!='custom'" width="50">操作</th>
             </tr>
             </thead>
             <tbody>
             <tr class="text-c" v-for="(item,index) in members" :key="index">
                 <!--<td><input type="checkbox" :id="'item'+item.id" :value="item.id" v-model="checkedItems"></td>-->
                 <!--<td>{{item.id}}</td>-->
-                <!--<td>{{item.role}}</td>-->
                 <td>{{item.company_id}}</td>
                 <td>{{item.price}}</td>
-                <td class="td-manage">
-                    <a title="选定价格，生成合同" href="javascript:;" @click="member_select()" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe73a;</i></a>
+                <td v-if="login_role!='custom'" class="td-manage">
+                    <a title="选定价格，生成合同" href="javascript:;" @click="member_select(goods_id,item.id)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe73a;</i></a>
                 </td>
             </tr>
             </tbody>
@@ -77,6 +75,8 @@
     window.mainVue = new Vue({
         el: '#memberList',
         data: {
+            login_role: "",
+            login_company_id: "",
             total: 0,
             v_page: 1,
             v_per_page: 10,
@@ -122,7 +122,7 @@
                 var thisVue = this;
                 layer.prompt({title: '请输入您的竞价单价', formType: 0}, function(text, index){
                     var a_data = {
-                        "company_id": 14,
+                        "company_id": thisVue.login_company_id,
                         "goods_id": thisVue.goods_id,
                         "price": text
                     };
@@ -144,17 +144,49 @@
                     });
                 });
             },
-            member_select: function() {
+            member_select: function(goods_id, bid_id) {
                 layer.confirm('确定选择该价格并生成合同?', {icon: 3, title:'提示'}, function(index){
-                    //do something
-
-                    layer.close(index);
+                    $.ajax({
+                        url: "http://localhost:8000/goodscontroller/edit",
+                        type: 'POST',
+                        dateType: 'JSON',
+                        data: {
+                            "id": goods_id,
+                            "status": "1",
+                            "bid_id": bid_id
+                        },
+                        success: function(data){
+                            // console.log(data);
+                            if(data.status == 'success'){
+                                layer.msg('生成合同成功');
+                                setTimeout(function(){
+                                    parent.location.reload();
+                                },800)
+                            }else{
+                                layer.alert(data.msg);
+                            }
+                        }
+                    });
                 });
             }
         },
         mounted: function () { // 挂载结束状态
             this.goods_id = UrlParm.parm("goods_id");
             this.get_list();
+            let thisVue = this;
+            $.ajax({
+                url: "http://localhost:8000/usercontroller/get_login_user",
+                type: 'POST',
+                dateType: 'JSON',
+                success: function(data){
+                    if(data.status == 'success'){
+                        thisVue.login_role = data.data.role;
+                        thisVue.login_company_id = data.data.company_id;
+                    }else{
+                        layer.alert(data.msg);
+                    }
+                }
+            });
         },
         updated: function () {
             var thisVue = this;

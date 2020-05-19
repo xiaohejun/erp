@@ -19,19 +19,17 @@
     <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <title>货物信息管理</title>
+    <title>已竞价货物信息管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 货物管理 <span class="c-gray en">&gt;</span> 货物信息管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 货物管理 <span class="c-gray en">&gt;</span> 已竞价货物信息管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div id="memberList" class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
-			<a href="javascript:;" onclick="member_add('添加','goods_info.html?add=1&role=staff','','320')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加货物</a>
 			<a href="javascript:;" onclick="member_search()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe665;</i> 查询货物</a>
             <input type="text" name="name" id="name" placeholder="货物名查询" style="width:140px" class="input-text">
         </span>
         <span class="r">
-            <a href="javascript:;" @click="member_del()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
             显示数据：<strong>{{members.length}}</strong> 条， 共有数据：<strong>{{total}}</strong> 条
         </span>
     </div>
@@ -61,9 +59,7 @@
                 <td>{{item.total}}</td>
                 <td>{{item.remain}}</td>
                 <td class="td-manage">
-                    <a title="竞价" href="javascript:;" @click="member_bid(item.name+'竞价','goods_bid.html',index,'','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe73a;</i></a>
-                    <a v-if="login_role!='custom'" title="修改" href="javascript:;" @click="member_edit('修改','goods_info.html?update=1',index,'','320')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-                    <a v-if="login_role!='custom'" title="删除" href="javascript:;" @click="member_del(index)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    <a title="查看合同" href="javascript:;" @click="member_bid_show(item.id,item.name,item.total,item.remain,item.bid_id)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe636;</i></a>
                 </td>
             </tr>
             </tbody>
@@ -105,7 +101,7 @@
                     "per_page": this.v_per_page,
                     "data": {
                         "name": "",
-                        "status": 0
+                        "status": 1
                     }
                 };
                 if (typeof (name) != "undefined") {
@@ -131,48 +127,61 @@
                     }
                 });
             },
-            member_bid: function(title,url,index,w,h) {
-                url += '?goods_id=' + this.members[index].id;
-                layer_show(title,url,w,h);
-            },
-            member_edit: function(title,url,index,w,h) {
-                url += '&id=' + this.members[index].id + '&name=' + this.members[index].name + '&price=' + this.members[index].price +
-                    '&total=' + this.members[index].total + '&remain=' + this.members[index].remain;
-                layer_show(title,url,w,h);
-            },
-            member_del: function (index) {
-                var ids = [];
-                if (typeof (index) == "undefined") {
-                    if (this.checkedItems.length == 0) {
-                        layer.alert("请选择删除的目标");
-                        return;
-                    } else {
-                        ids = this.checkedItems;
-                    }
-                } else {
-                    ids = [this.members[index].id];
-                }
-                // console.log(ids);
-                var thisVue = this, thisIndex = index;
-                layer.confirm('确认要删除吗？', {icon: 0, title:'提示'}, function(index){
-                    $.ajax({
-                        url: "http://localhost:8000/goodscontroller/delete",
-                        type: 'POST',
-                        dateType: 'JSON',
-                        data: {
-                            "ids": ids
-                        },
-                        success: function(data){
-                            // console.log(data);
-                            if(data.status == 'success'){
-                                // thisVue.members.splice(thisIndex,1);
-                                thisVue.get_list();
-                                layer.close(index);
-                            }else{
-                                layer.alert(data.msg);
-                            }
+            member_bid_show: function(goods_id, goods_name, goods_total, goods_remain, bid_id) {
+                $.ajax({
+                    url: "http://localhost:8000/bidcontroller/query",
+                    type: 'POST',
+                    dateType: 'JSON',
+                    data: {
+                        "page": 1,
+                        "per_page": 1,
+                        "data": {
+                            "id": bid_id
                         }
-                    });
+                    },
+                    success: function(bid_data){
+                        // console.log(data);
+                        let company_id = bid_data.data.data[0].company_id;
+                        let price = bid_data.data.data[0].price;
+                        if(bid_data.status == 'success'){
+                            $.ajax({
+                                url: "http://localhost:8000/companycontroller/query",
+                                type: 'POST',
+                                dateType: 'JSON',
+                                data: {
+                                    "page": 1,
+                                    "per_page": 1,
+                                    "data": {
+                                        "id": company_id
+                                    }
+                                },
+                                success: function(com_data){
+                                    // console.log(data);
+                                    if(com_data.status == 'success'){
+                                        layer.alert("货物ID："+goods_id+"<br>货物名："+goods_name+"<br>货物总量："+goods_total+
+                                            "<br>货物余量："+goods_remain+"<hr>企业ID："+company_id+
+                                            "<br>企业名称："+com_data.data.data[0].name+
+                                            "<br>企业性质："+com_data.data.data[0].nature+
+                                            "<br>交易总价："+com_data.data.data[0].sum+
+                                            "<br>注册资本："+com_data.data.data[0].money+
+                                            "<br>所属企业地址："+com_data.data.data[0].address+
+                                            "<br>所属企业法人代表："+com_data.data.data[0].legal+
+                                            "<br>等级："+com_data.data.data[0].grade+
+                                            "<hr>最终竞价："+price, {
+                                            skin: 'layui-layer-lan',
+                                            closeBtn: 0,
+                                            anim: 4, //动画类型
+                                            title: '合同'
+                                        });
+                                    }else{
+                                        layer.alert(com_data.msg);
+                                    }
+                                }
+                            });
+                        }else{
+                            layer.alert(bid_data.msg);
+                        }
+                    }
                 });
             }
         },
@@ -234,10 +243,6 @@
     $(function(){
 
     });
-    /*货物-添加*/
-    function member_add(title,url,w,h){
-        layer_show(title,url,w,h);
-    }
     /*货物-查询*/
     function member_search(){
         mainVue.get_list($("#name").val());

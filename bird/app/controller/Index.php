@@ -63,6 +63,11 @@ class Index
         return view("/webapp/goods/goods_manage");
     }
 
+    public function bid_goods_manage()
+    {
+        return view("/webapp/goods/bid_goods_manage");
+    }
+
     public function goods_info()
     {
         return view("/webapp/goods/goods_info");
