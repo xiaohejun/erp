@@ -8,6 +8,11 @@ use app\BaseController;
 class Index
 {
 
+    public function login()
+    {
+        return view('/webapp/login');
+    }
+
     public function index()
     {   
         return view('/webapp/index');

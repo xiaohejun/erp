@@ -61,7 +61,7 @@
                 <td>{{item.total}}</td>
                 <td>{{item.remain}}</td>
                 <td class="td-manage">
-                    <a title="竞价" href="javascript:;" @click="member_bid(item.name+'竞价','goods_bid.html?update=1',index,'','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe73a;</i></a>
+                    <a title="竞价" href="javascript:;" @click="member_bid(item.name+'竞价','goods_bid.html',index,'','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe73a;</i></a>
                     <a title="修改" href="javascript:;" @click="member_edit('修改','goods_info.html?update=1',index,'','320')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
                     <a title="删除" href="javascript:;" @click="member_del(index)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
                 </td>
@@ -130,8 +130,7 @@
                 });
             },
             member_bid: function(title,url,index,w,h) {
-                // url += '&id=' + this.members[index].id + '&name=' + this.members[index].name + '&price=' + this.members[index].price +
-                //     '&total=' + this.members[index].total + '&remain=' + this.members[index].remain;
+                url += '?goods_id=' + this.members[index].id;
                 layer_show(title,url,w,h);
             },
             member_edit: function(title,url,index,w,h) {

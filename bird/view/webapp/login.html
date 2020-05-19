@@ -8,37 +8,40 @@
           content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="lib/html5shiv.js"></script>
-    <script type="text/javascript" src="lib/respond.min.js"></script>
+    <script type="text/javascript" src="/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/lib/respond.min.js"></script>
     <![endif]-->
-    <link href="static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css"/>
-    <link href="static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css"/>
-    <link href="static/h-ui.admin/css/style.css" rel="stylesheet" type="text/css"/>
-    <link href="lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/h-ui.admin/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css"/>
     <!--[if IE 6]>
-    <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js"></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <title>后台登录 - H-ui.admin v3.1</title>
-    <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-    <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+    <title>登录</title>
+    <style>
+        .error {
+            line-height: 2.5;
+        }
+    </style>
 </head>
 <body>
 <input type="hidden" id="TenantId" name="TenantId" value=""/>
 <!--<div class="header"></div>-->
 <div class="loginWraper">
     <div id="loginform" class="loginBox">
-        <form class="form form-horizontal" action="index.html" method="post">
+        <form id="form-login" class="form form-horizontal">
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
-                <div class="formControls col-xs-8">
-                    <input id="username" name="username" type="text" placeholder="账户" class="input-text size-L">
+                <div class="formControls col-xs-7">
+                    <input id="username" name="username" type="text" placeholder="账户" class="input-text size-L" style="width: 100%">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
-                <div class="formControls col-xs-8">
-                    <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L">
+                <div class="formControls col-xs-7">
+                    <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L" style="width: 100%">
                 </div>
             </div>
             <!--      <div class="row cl">-->
@@ -55,69 +58,64 @@
             <!--      </div>-->
             <div class="row cl">
                 <div class="formControls col-xs-4 col-xs-offset-4">
-                    <input name="" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;"
-                           onclick="login()">
-                    <!--          <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">-->
+                    <input name="" class="btn btn-success radius size-L" type="submit" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
                 </div>
             </div>
         </form>
     </div>
 </div>
-<div class="footer">Copyright 钐椋图书馆管理系统 by Admin v1.0</div>
+<div class="footer">Copyright 企业客户关系管理系统 by Admin v1.0</div>
 <!--<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>-->
-<script type="text/javascript" src="static/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script>
-    function login() {
-        var username = $("#username").val();
-        var password = $("#password").val();
-        if (username == '') {
-            layer.tips('请填写账号', '#username', {
-                tips: 1
-            });
-            return;
-        }
-        if (username.length < 6 || username.length > 12) {
-            layer.tips('账号长度为6~12位', '#username', {
-                tips: 1
-            });
-            return;
-        }
-        if (password == '') {
-            layer.tips('请填写密码', '#password', {
-                tips: 1
-            });
-            return;
-        }
-        if (password.length < 6 || password.length > 20) {
-            layer.tips('密码长度为6~20位', '#password', {
-                tips: 1
-            });
-            return;
-        }
-        $.ajax({
-            url: "/api/login",
-            type: 'POST',
-            dateType: 'JSON',
-            data: JSON.stringify({Username: username, Password: password}),
-            contentType: 'application/json',
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function (data) {
-                data = JSON.parse(data);
-                if (data.status == 'ok') {
-                    layer.msg("登录成功");
-                    setTimeout(function(){
-                        location.href = "/index";
-                    },800)
-                } else {
-                    layer.alert(data.reason);
+    $(function() {
+        $("#form-login").validate({
+            rules:{
+                username: {
+                    required:true,
+                    minlength:6,
+                    maxlength:16
+                },
+                password:{
+                    required:true,
+                    minlength:6,
+                    maxlength:16
                 }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(){
+                var a_data = {
+                    "username": $("#username").val(),
+                    "password": $("#password").val()
+                };
+                // console.log(a_data);
+                $.ajax({
+                    url: "http://localhost:8000/usercontroller/login",
+                    type: 'POST',
+                    dateType: 'JSON',
+                    data: a_data,
+                    success: function(data){
+                        // console.log(data);
+                        if(data.status == 'success'){
+                            layer.msg("登录成功");
+                            setTimeout(function(){
+                                location.href = "index.html";
+                            },800);
+                        }else{
+                            layer.alert(data.msg);
+                        }
+                    }
+                });
             }
         });
-    }
+    });
 </script>
 </body>
 </html>
