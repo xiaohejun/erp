@@ -7,7 +7,7 @@ use app\model\User;
 use think\Facade\Db;
 use app\validate\EditUserValidate;
 use app\validate\AddUserValidate;
-
+use think\facade\Session;
 
 class UserController extends BaseController
 {
@@ -21,10 +21,15 @@ class UserController extends BaseController
         $res = Db::name('user')->where('username', $username)->findOrEmpty();
         if($res != [] && $res['password'] == $password) {
             $res['password'] = '';
-            session('userinfo', $res);
+            Session::set('userinfo', $res);
             return $this->success_msg($res,  'login successful.');
         }
         return $this->info_msg([], 'Incorrect username or password.');
+    }
+
+    public function get_login_user()
+    {
+        return $this->success_msg(Session::get('userinfo'), 'success');
     }
 
     // 增加
