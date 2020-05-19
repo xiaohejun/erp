@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 19/05/2020 16:29:47
+ Date: 19/05/2020 16:52:37
 */
 
 SET NAMES utf8mb4;
@@ -58,6 +58,7 @@ CREATE TABLE `goods`  (
   `total` int(11) NOT NULL COMMENT '总量',
   `remain` int(11) NOT NULL COMMENT '余量',
   `status` int(11) NOT NULL DEFAULT 0 COMMENT '状态：0表示没有签合同 1表示签了合同',
+  `bid_id` int(11) NOT NULL COMMENT '成功竞价的id',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
