@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>价格：</label>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>单价：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" class="input-text" placeholder="" id="price" name="price">
             </div>
@@ -100,37 +100,18 @@
 
         $("#form-staff-info-add").validate({
             rules:{
-                username: {
+                name: {
                     required:true,
-                    minlength:6,
-                    maxlength:16
                 },
-                password:{
+                price:{
                     required:true,
-                    minlength:6,
-                    maxlength:16
                 },
-                role:{
+                total:{
                     required:true
                 },
-                name:{
+                remain:{
                     required:true,
-                    minlength:2,
-                    maxlength:16
-                },
-                job_number:{
-                    required:true,
-                },
-                sex:{
-                    required:true
-                },
-                phone:{
-                    required:true,
-                    isMobile:true
-                },
-                address:{
-                    required:true
-                },
+                }
             },
             onkeyup:false,
             focusCleanup:true,

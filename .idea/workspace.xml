@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04c8f887-ca74-4a6f-98dd-eb58ef878235" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/bird/app/controller/Index.php" beforeDir="false" afterPath="$PROJECT_DIR$/bird/app/controller/Index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bird/view/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/company/company_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/company/company_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/company/competitor_manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/company/competitor_manage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/company/customer_manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/company/customer_manage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/goods/goods_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/goods/goods_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/goods/goods_manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/goods/goods_manage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/user/saler_manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/user/saler_manage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/user/staff_manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/user/staff_manage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bird/view/webapp/user/user_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/bird/view/webapp/user/user_info.html" afterDir="false" />
     </list>
     <list id="e5550bfa-ac6b-49c3-be75-0c6113f6d34c" name="Ignore Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,8 +38,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bird/app/controller/Index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="538">
-              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+            <state relative-caret-position="1026">
+              <caret line="54" selection-start-line="54" selection-end-line="54" />
             </state>
           </provider>
         </entry>
@@ -40,8 +47,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bird/view/webapp/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="89" column="10" lean-forward="true" selection-start-line="89" selection-start-column="10" selection-end-line="89" selection-end-column="10" />
+            <state relative-caret-position="1691">
+              <caret line="89" column="10" selection-start-line="89" selection-start-column="10" selection-end-line="89" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -49,8 +56,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bird/view/webapp/user/staff_manage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="118" column="17" lean-forward="true" selection-start-line="118" selection-start-column="17" selection-end-line="118" selection-end-column="17" />
+            <state relative-caret-position="110">
+              <caret line="31" column="80" selection-start-line="31" selection-start-column="80" selection-end-line="31" selection-end-column="80" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#1;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -62,8 +69,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bird/view/webapp/user/user_info.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="119" column="44" lean-forward="true" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="44" />
+            <state relative-caret-position="409">
+              <caret line="83" column="86" selection-start-line="83" selection-start-column="86" selection-end-line="83" selection-end-column="86" />
             </state>
           </provider>
         </entry>
@@ -71,8 +78,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bird/view/webapp/company/competitor_manage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="40" column="26" lean-forward="true" selection-start-line="40" selection-start-column="26" selection-end-line="40" selection-end-column="26" />
+            <state relative-caret-position="224">
+              <caret line="30" column="70" selection-start-line="30" selection-start-column="70" selection-end-line="30" selection-end-column="70" />
+              <folding>
+                <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bird/view/webapp/company/customer_manage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="30" column="70" selection-start-line="30" selection-start-column="70" selection-end-line="30" selection-end-column="70" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -83,17 +102,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bird/view/webapp/company/company_info.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="232" column="49" lean-forward="true" selection-start-line="232" selection-start-column="49" selection-end-line="232" selection-end-column="49" />
+            <state relative-caret-position="357">
+              <caret line="70" column="92" selection-start-line="70" selection-start-column="92" selection-end-line="70" selection-end-column="92" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bird/view/webapp/goods/goods_manage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="133" column="42" lean-forward="true" selection-start-line="133" selection-start-column="42" selection-end-line="133" selection-end-column="42" />
+            <state relative-caret-position="224">
+              <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
               <folding>
                 <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -104,8 +123,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bird/view/webapp/goods/goods_info.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="141" column="47" lean-forward="true" selection-start-line="141" selection-start-column="47" selection-end-line="141" selection-end-column="47" />
+            <state relative-caret-position="1463">
+              <caret line="103" column="34" selection-start-line="103" selection-start-column="34" selection-end-line="103" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -149,16 +168,16 @@
         <option value="$PROJECT_DIR$/bird/view/webapp/staff/staff_info.html" />
         <option value="$PROJECT_DIR$/bird/view/webapp/company/competitor_info.html" />
         <option value="$PROJECT_DIR$/bird/view/webapp/company/cosutomer_manage.html" />
-        <option value="$PROJECT_DIR$/bird/view/webapp/company/company_info.html" />
-        <option value="$PROJECT_DIR$/bird/view/webapp/company/competitor_manage.html" />
-        <option value="$PROJECT_DIR$/bird/view/webapp/company/customer_manage.html" />
-        <option value="$PROJECT_DIR$/bird/view/webapp/user/user_info.html" />
-        <option value="$PROJECT_DIR$/bird/view/webapp/user/staff_manage.html" />
-        <option value="$PROJECT_DIR$/bird/view/webapp/user/saler_manage.html" />
         <option value="$PROJECT_DIR$/bird/app/controller/Index.php" />
         <option value="$PROJECT_DIR$/bird/view/webapp/index.html" />
         <option value="$PROJECT_DIR$/bird/view/webapp/goods/goods_info.html" />
         <option value="$PROJECT_DIR$/bird/view/webapp/goods/goods_manage.html" />
+        <option value="$PROJECT_DIR$/bird/view/webapp/company/company_info.html" />
+        <option value="$PROJECT_DIR$/bird/view/webapp/user/saler_manage.html" />
+        <option value="$PROJECT_DIR$/bird/view/webapp/user/staff_manage.html" />
+        <option value="$PROJECT_DIR$/bird/view/webapp/user/user_info.html" />
+        <option value="$PROJECT_DIR$/bird/view/webapp/company/competitor_manage.html" />
+        <option value="$PROJECT_DIR$/bird/view/webapp/company/customer_manage.html" />
       </list>
     </option>
   </component>
@@ -232,7 +251,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589805865782" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589806211545" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -268,18 +287,19 @@
       <updated>1589692843391</updated>
       <workItem from="1589692844910" duration="2700000" />
       <workItem from="1589697917334" duration="13175000" />
-      <workItem from="1589717358691" duration="33267000" />
+      <workItem from="1589717358691" duration="33991000" />
+      <workItem from="1589869153142" duration="852000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49142000" />
+    <option name="totallyTimeSpent" value="50718000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17426273" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17627347" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -408,37 +428,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bird/view/webapp/company/customer_manage.html">
+    <entry file="file://$PROJECT_DIR$/bird/app/controller/Index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="30" column="66" selection-start-line="30" selection-start-column="66" selection-end-line="30" selection-end-column="66" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="1026">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bird/view/webapp/company/competitor_manage.html">
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="40" column="26" lean-forward="true" selection-start-line="40" selection-start-column="26" selection-end-line="40" selection-end-column="26" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="1691">
+          <caret line="89" column="10" selection-start-line="89" selection-start-column="10" selection-end-line="89" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bird/view/webapp/company/company_info.html">
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/goods/goods_info.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="232" column="49" lean-forward="true" selection-start-line="232" selection-start-column="49" selection-end-line="232" selection-end-column="49" />
+        <state relative-caret-position="1463">
+          <caret line="103" column="34" selection-start-line="103" selection-start-column="34" selection-end-line="103" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/goods/goods_manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bird/view/webapp/user/saler_manage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="74" column="20" lean-forward="true" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
+        <state relative-caret-position="190">
+          <caret line="31" column="83" selection-start-line="31" selection-start-column="83" selection-end-line="31" selection-end-column="83" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#1;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/user/staff_manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="31" column="80" selection-start-line="31" selection-start-column="80" selection-end-line="31" selection-end-column="80" />
           <folding>
             <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#1;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -448,47 +483,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bird/view/webapp/user/user_info.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="119" column="44" lean-forward="true" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="44" />
+        <state relative-caret-position="409">
+          <caret line="83" column="86" selection-start-line="83" selection-start-column="86" selection-end-line="83" selection-end-column="86" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bird/app/controller/Index.php">
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/company/company_info.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+        <state relative-caret-position="357">
+          <caret line="70" column="92" selection-start-line="70" selection-start-column="92" selection-end-line="70" selection-end-column="92" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bird/view/webapp/user/staff_manage.html">
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/company/competitor_manage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="118" column="17" lean-forward="true" selection-start-line="118" selection-start-column="17" selection-end-line="118" selection-end-column="17" />
+        <state relative-caret-position="224">
+          <caret line="30" column="70" selection-start-line="30" selection-start-column="70" selection-end-line="30" selection-end-column="70" />
           <folding>
             <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#1;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bird/view/webapp/index.html">
+    <entry file="file://$PROJECT_DIR$/bird/view/webapp/company/customer_manage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="89" column="10" lean-forward="true" selection-start-line="89" selection-start-column="10" selection-end-line="89" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bird/view/webapp/goods/goods_info.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="141" column="47" lean-forward="true" selection-start-line="141" selection-start-column="47" selection-end-line="141" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bird/view/webapp/goods/goods_manage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="133" column="42" lean-forward="true" selection-start-line="133" selection-start-column="42" selection-end-line="133" selection-end-column="42" />
+        <state relative-caret-position="247">
+          <caret line="30" column="70" selection-start-line="30" selection-start-column="70" selection-end-line="30" selection-end-column="70" />
           <folding>
             <element signature="n#style#0;n#input#0;n#span#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
