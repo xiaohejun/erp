@@ -33,6 +33,11 @@ class Index
         return view("/webapp/user/saler_manage");
     }
 
+    public function custom_manage()
+    {
+        return view("/webapp/user/custom_manage");
+    }
+
     public function user_info()
     {
         return view("/webapp/user/user_info");

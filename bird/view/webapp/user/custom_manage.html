@@ -19,16 +19,16 @@
     <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <title>客户企业信息管理</title>
+    <title>客户账号管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 人员管理 <span class="c-gray en">&gt;</span> 客户企业信息管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 人员管理 <span class="c-gray en">&gt;</span> 客户账号管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div id="memberList" class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
-			<a href="javascript:;" onclick="member_add('添加','company_info.html?add=1&role=custom','','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加客户企业</a>
-			<a href="javascript:;" onclick="member_search()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe665;</i> 查询客户企业</a>
-            <input type="text" name="name" id="name" placeholder="企业名称查询" style="width:140px" class="input-text">
+			<a href="javascript:;" onclick="member_add('添加','user_info.html?add=1&role=custom','','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加客户</a>
+			<a href="javascript:;" onclick="member_search()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe665;</i> 查询客户</a>
+            <input type="text" name="name" id="name" placeholder="客户姓名查询" style="width:140px" class="input-text">
         </span>
         <span class="r">
             <a href="javascript:;" @click="member_del()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
@@ -44,14 +44,13 @@
                 </th>
                 <th width="30">ID</th>
                 <!--<th width="70">角色</th>-->
-                <th width="80">企业名称</th>
-                <th width="90">企业性质</th>
-                <th width="80">交易总价</th>
-                <th width="90">注册资本</th>
-                <th width="90">所属企业地址</th>
-                <th width="110">所属企业法人代表</th>
-                <th width="40">等级</th>
-                <th>简介</th>
+                <th width="100">用户名</th>
+                <th width="100">密码</th>
+                <th width="80">姓名</th>
+                <th width="90">所属企业ID</th>
+                <th width="40">性别</th>
+                <th width="100">联系电话</th>
+                <th>家庭地址</th>
                 <th width="50">操作</th>
             </tr>
             </thead>
@@ -60,16 +59,15 @@
                 <td><input type="checkbox" :id="'item'+item.id" :value="item.id" v-model="checkedItems"></td>
                 <td>{{item.id}}</td>
                 <!--<td>{{item.role}}</td>-->
+                <td>{{item.username}}</td>
+                <td>{{item.password}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.nature}}</td>
-                <td>{{item.sum}}</td>
-                <td>{{item.money}}</td>
+                <td>{{item.company_id}}</td>
+                <td>{{item.sex}}</td>
+                <td>{{item.phone}}</td>
                 <td>{{item.address}}</td>
-                <td>{{item.legal}}</td>
-                <td>{{item.grade}}</td>
-                <td>{{item.summary}}</td>
                 <td class="td-manage">
-                    <a title="修改" href="javascript:;" @click="member_edit('修改','company_info.html?update=1',index,'','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="修改" href="javascript:;" @click="member_edit('修改','user_info.html?update=1',index,'','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
                     <a title="删除" href="javascript:;" @click="member_del(index)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
                 </td>
             </tr>
@@ -111,7 +109,7 @@
                     "per_page": this.v_per_page,
                     "data": {
                         "role": "custom",
-                        "name": ""
+                        "name": "",
                     }
                 };
                 if (typeof (name) != "undefined") {
@@ -120,7 +118,7 @@
                 // console.log(a_data);
                 var thisVue = this;
                 $.ajax({
-                    url: "http://localhost:8000/companycontroller/query",
+                    url: "http://localhost:8000/usercontroller/query",
                     type: 'POST',
                     dateType: 'JSON',
                     data: a_data,
@@ -138,10 +136,9 @@
                 });
             },
             member_edit: function(title,url,index,w,h) {
-                url += '&id=' + this.members[index].id + '&name=' + this.members[index].name + '&nature=' + this.members[index].nature +
-                    '&role=' + this.members[index].role + '&sum=' + this.members[index].sum + '&money=' + this.members[index].money +
-                    '&address=' + this.members[index].address + '&legal=' + this.members[index].legal + '&grade=' + this.members[index].grade +
-                    '&summary=' + this.members[index].summary;
+                url += '&id=' + this.members[index].id + '&username=' + this.members[index].username + '&password=' + this.members[index].password +
+                    '&role=' + this.members[index].role + '&name=' + this.members[index].name + '&company_id=' + this.members[index].company_id +
+                    '&sex=' + this.members[index].sex + '&phone=' + this.members[index].phone + '&address=' + this.members[index].address;
                 layer_show(title,url,w,h);
             },
             member_del: function (index) {
@@ -160,7 +157,7 @@
                 var thisVue = this, thisIndex = index;
                 layer.confirm('确认要删除吗？', {icon: 0, title:'提示'}, function(index){
                     $.ajax({
-                        url: "http://localhost:8000/companycontroller/delete",
+                        url: "http://localhost:8000/usercontroller/delete",
                         type: 'POST',
                         dateType: 'JSON',
                         data: {
@@ -227,15 +224,34 @@
     });
     /*用户-添加*/
     function member_add(title,url,w,h){
-        layer_show(title,url,w,h);
+        $.ajax({
+            url: "http://localhost:8000/companycontroller/query",
+            type: 'POST',
+            dateType: 'JSON',
+            data: {
+                "page": 1,
+                "per_page": 9999,
+                "data": {
+                    "name": ""
+                }
+            },
+            success: function(data){
+                // console.log(data);
+                if(data.status == 'success'){
+                    if (data.data.data.length == 0) {
+                        layer.msg('请先添加客户或竞争对手企业');
+                    } else {
+                        layer_show(title,url,w,h);
+                    }
+                }else{
+                    layer.alert(data.msg);
+                }
+            }
+        });
     }
     /*用户-查询*/
     function member_search(){
-        if ($("#name").val() == "") {
-            mainVue.get_list();
-        } else {
-            mainVue.get_list($("#name").val());
-        }
+        mainVue.get_list($("#name").val());
     }
 </script>
 </body>

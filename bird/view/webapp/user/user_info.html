@@ -45,6 +45,7 @@
 				<select id="role" name="role" class="select" disabled>
 					<option value="staff" selected>员工</option>
 					<option value="saler">销售管理员</option>
+					<option value="custom">客户</option>
 				</select>
 				</span>
             </div>
@@ -55,10 +56,19 @@
                 <input type="text" class="input-text" placeholder="" id="name" name="name">
             </div>
         </div>
-        <div class="row cl">
+        <div id="hidden_job_number" class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工号：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" class="input-text" placeholder="" id="job_number" name="job_number">
+            </div>
+        </div>
+        <div id="hidden_company" class="row cl" style="display: none">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属企业：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+				<select id="company" name="company" class="select">
+				</select>
+				</span>
             </div>
         </div>
         <div class="row cl">
@@ -124,6 +134,39 @@
             old_phone = UrlParm.parm("phone"),
             old_address = UrlParm.parm("address");
         $("#role").val(old_role);
+        if (old_role == 'custom') {
+            document.getElementById("hidden_job_number").style.display="none";
+            document.getElementById("hidden_company").style.display="inherit";
+            $.ajax({
+                url: "http://localhost:8000/companycontroller/query",
+                type: 'POST',
+                dateType: 'JSON',
+                data: {
+                    "page": 1,
+                    "per_page": 9999,
+                    "data": {
+                        "name": ""
+                    }
+                },
+                success: function(data){
+                    // console.log(data);
+                    if(data.status == 'success'){
+                        for (let i in data.data.data) {
+                            document.getElementById("company").options.add(new Option(data.data.data[i].name, data.data.data[i].id));
+                        }
+                        $("#company").val(UrlParm.parm("company_id"));
+                    }else{
+                        layer.alert(data.msg);
+                        setTimeout(function(){
+                            let index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        },800);
+                    }
+                }
+            });
+            old_job_number = "164596";
+            $("#job_number").val("164596");
+        }
         if (update != '' && typeof(update) != 'undefined') { // 修改信息
             action = 'UPDATE';
             $("#button").val('修改');
@@ -195,6 +238,9 @@
                     "address" : $("#address").val()
                 };
                 // console.log(a_data);
+                if (old_role == 'custom') {
+                    a_data.company_id = $("#company option:selected").val();
+                }
                 if (action == 'ADD') {
                     $.ajax({
                         url: "http://localhost:8000/usercontroller/add",
