@@ -42,7 +42,7 @@
                 <!--<th width="30">ID</th>-->
                 <th>竞争企业ID</th>
                 <th>竞价</th>
-                <th v-if="login_role!='custom'" width="50">操作</th>
+                <th v-if="login_role!='custom'&&login_role!='staff'" width="50">操作</th>
             </tr>
             </thead>
             <tbody>
@@ -51,7 +51,7 @@
                 <!--<td>{{item.id}}</td>-->
                 <td>{{item.company_id}}</td>
                 <td>{{item.price}}</td>
-                <td v-if="login_role!='custom'" class="td-manage">
+                <td v-if="login_role!='custom'&&login_role!='staff'" class="td-manage">
                     <a title="选定价格，生成合同" href="javascript:;" @click="member_select(goods_id,item.id)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe73a;</i></a>
                 </td>
             </tr>

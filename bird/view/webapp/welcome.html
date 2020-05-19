@@ -23,10 +23,10 @@
 </head>
 <body>
 <div class="page-container">
-	<p class="f-20 text-success">欢迎使用H-ui.admin <span class="f-14">v3.1</span>后台模版！</p>
+	<p class="f-20 text-success">欢迎使用企业客户关系管理系统！</p>
 	<p>登录次数：18 </p>
-	<p>上次登录IP：222.35.131.79.1  上次登录时间：2014-6-14 11:19:55</p>
-	<table class="table table-border table-bordered table-bg">
+	<p>上次登录IP：127.0.0.1  上次登录时间：2020/4/19 星期三 23:29:39.pm</p>
+	<!--<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
 				<th colspan="7" scope="col">信息统计</th>
@@ -82,7 +82,7 @@
 				<td>0</td>
 			</tr>
 		</tbody>
-	</table>
+	</table>-->
 	<table class="table table-border table-bordered table-bg mt-20">
 		<thead>
 			<tr>
@@ -96,27 +96,15 @@
 			</tr>
 			<tr>
 				<td>服务器IP地址</td>
-				<td>192.168.1.1</td>
-			</tr>
-			<tr>
-				<td>服务器域名</td>
-				<td>www.h-ui.net</td>
+				<td>127.0.0.1</td>
 			</tr>
 			<tr>
 				<td>服务器端口 </td>
 				<td>80</td>
 			</tr>
 			<tr>
-				<td>服务器IIS版本 </td>
-				<td>Microsoft-IIS/6.0</td>
-			</tr>
-			<tr>
-				<td>本文件所在文件夹 </td>
-				<td>D:\WebSite\HanXiPuTai.com\XinYiCMS.Web\</td>
-			</tr>
-			<tr>
 				<td>服务器操作系统 </td>
-				<td>Microsoft Windows NT 5.2.3790 Service Pack 2</td>
+				<td>Microsoft Windows 10</td>
 			</tr>
 			<tr>
 				<td>系统所在文件夹 </td>
@@ -136,7 +124,7 @@
 			</tr>
 			<tr>
 				<td>服务器当前时间 </td>
-				<td>2014-6-14 12:06:23</td>
+				<td id="ymd">2014-6-14 12:06:23</td>
 			</tr>
 			<tr>
 				<td>服务器IE版本 </td>
@@ -144,7 +132,7 @@
 			</tr>
 			<tr>
 				<td>服务器上次启动到现在已运行 </td>
-				<td>7210分钟</td>
+				<td>72分钟</td>
 			</tr>
 			<tr>
 				<td>逻辑驱动器 </td>
@@ -172,7 +160,7 @@
 			</tr>
 			<tr>
 				<td>当前Session数量 </td>
-				<td>8</td>
+				<td>1</td>
 			</tr>
 			<tr>
 				<td>当前SessionID </td>
@@ -187,15 +175,28 @@
 </div>
 <footer class="footer mt-20">
 	<div class="container">
-		<p>感谢jQuery、layer、laypage、Validform、UEditor、My97DatePicker、iconfont、Datatables、WebUploaded、icheck、highcharts、bootstrap-Switch<br>
-			Copyright &copy;2015-2017 H-ui.admin v3.1 All Rights Reserved.<br>
-			本后台系统由<a href="http://www.h-ui.net/" target="_blank" title="H-ui前端框架">H-ui前端框架</a>提供前端技术支持</p>
+		<p>企业客户关系管理系统</p>
 	</div>
 </footer>
 <script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
 <!--此乃百度统计代码，请自行删除-->
 <script>
+	var t = new Date();//获取当前时间
+	var year = t.getFullYear();//获取当前时间年份
+	var month = t.getMonth();//获取当前时间月份
+	var day = t.getDate();//获取当前时间日
+	var week = t.getDay();//获取当前时间星期
+	var arr = new Array ("星期一","星期二","星期三","星期四","星期五","星期六","星期日",);
+	//上行是为规划星期的输出
+	//下3行分别获得当前时间的时 分 秒
+	var hour = t.getHours();
+	var minute = t.getMinutes();
+	var second = t.getSeconds();
+	var nowTime = year+"/"+month+"/"+day+" "+arr[week]+" "+hour+((minute<10)?":0":":")+minute+((second<10)?":0":":")
+			+second+((hour>12)?".pm":".am");
+	document.getElementById("ymd").innerHTML = nowTime;
+
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");

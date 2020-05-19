@@ -62,8 +62,8 @@
                 <td>{{item.remain}}</td>
                 <td class="td-manage">
                     <a title="竞价" href="javascript:;" @click="member_bid(item.name+'竞价','goods_bid.html',index,'','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe73a;</i></a>
-                    <a v-if="login_role!='custom'" title="修改" href="javascript:;" @click="member_edit('修改','goods_info.html?update=1',index,'','320')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-                    <a v-if="login_role!='custom'" title="删除" href="javascript:;" @click="member_del(index)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    <a v-if="login_role!='custom'&&login_role!='staff'" title="修改" href="javascript:;" @click="member_edit('修改','goods_info.html?update=1',index,'','320')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a v-if="login_role!='custom'&&login_role!='staff'" title="删除" href="javascript:;" @click="member_del(index)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
                 </td>
             </tr>
             </tbody>
