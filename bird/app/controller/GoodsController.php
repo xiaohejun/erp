@@ -43,4 +43,5 @@ class GoodsController extends BaseController
     {
         return $this->base_query($this->table, $this->request->post());
     }
+
 }
