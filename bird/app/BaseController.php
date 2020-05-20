@@ -8,6 +8,8 @@ use think\exception\ValidateException;
 use think\Validate;
 use think\Facade\Db;
 use app\validate\IdValidate;
+use app\validate\IdsValidate;
+use app\validate\EditUserValidate;
 
 /**
  * 控制器基础类
@@ -147,8 +149,15 @@ abstract class BaseController
         }
 
         // 删除
-        $res = Db::table($table)->destroy($data['ids']);
-        return $this->success_msg($res, ' Data successfully deleted');
+        $res = Db::table($table)->delete($data['ids']);
+        if($res)
+        {
+            return $this->success_msg($res, 'Data successfully deleted');
+        }
+        else
+        {
+            return $this->info_msg($res, 'No data to delete.');
+        }
     }
 
     // 改
@@ -167,12 +176,12 @@ abstract class BaseController
         {
             return $this->info_msg([], "No corresponding $table found, forbidden to modify.");
         }
-        $flag = $res->save($data);
+        $flag = Db::name($table)->update($data);
         if($flag)
         {
-            return $this->success_msg($res, "$table edited successfully.");
+            return $this->success_msg($data, "$table edited successfully.");
         }
-        return $this->error_msg($res, "Edit $table failed.");
+        return $this->error_msg($data, "Edit $table failed.");
     }
 
     // 详情
@@ -195,5 +204,23 @@ abstract class BaseController
     }
 
     // 分页列表模糊查询
-
+    protected function base_query($table, $data)
+    {
+        // 组装查询条件
+        $map = [];
+        foreach($data['data'] as $k => $v)
+        {
+            $mid = gettype($v) == 'string' ? 'like' : '='; 
+            if($mid == 'like')
+            {
+                $v = "%$v%";
+            }
+            array_push($map, [$k, $mid, $v]);
+        }
+        $list = Db::name($table)->where($map)->order('id', 'desc')->paginate([
+            'list_rows'=> $data['per_page'],
+            'page' => $data['page'],
+        ]);
+        return $this->success_msg($list, 'success');
+    }
 }

@@ -1,0 +1,252 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.9/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>已竞价货物信息管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 货物管理 <span class="c-gray en">&gt;</span> 已竞价货物信息管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div id="memberList" class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="member_search()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe665;</i> 查询货物</a>
+            <input type="text" name="name" id="name" placeholder="货物名查询" style="width:140px" class="input-text">
+        </span>
+        <span class="r">
+            显示数据：<strong>{{members.length}}</strong> 条， 共有数据：<strong>{{total}}</strong> 条
+        </span>
+    </div>
+    <div class="mt-20">
+        <table id="memberTable" class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25">
+                    <!--<input type="checkbox" v-model="selectAll" @click="membersSelectAll()">-->
+                </th>
+                <th width="30">ID</th>
+                <!--<th width="70">角色</th>-->
+                <th>名称</th>
+                <th>单价</th>
+                <th>总量</th>
+                <th>余量</th>
+                <th width="70">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" v-for="(item,index) in members" :key="index">
+                <td><input type="checkbox" :id="'item'+item.id" :value="item.id" v-model="checkedItems"></td>
+                <td>{{item.id}}</td>
+                <!--<td>{{item.role}}</td>-->
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.total}}</td>
+                <td>{{item.remain}}</td>
+                <td class="td-manage">
+                    <a title="查看合同" href="javascript:;" @click="member_bid_show(item.id,item.name,item.total,item.remain,item.bid_id)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe636;</i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/layer/3.1.1/layer.js"></script>
+<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/js/vue.min.js"></script>
+<script type="text/javascript" src="/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    window.mainVue = new Vue({
+        el: '#memberList',
+        data: {
+            login_role: "",
+            total: 0,
+            v_page: 1,
+            v_per_page: 10,
+            v_current_page: 1,
+            v_last_page: 1,
+            members: [],
+            checkedItems: []
+        },
+        computed: {
+        },
+        watch: {
+        },
+        methods: {
+            get_list: function (name) {
+                var a_data = {
+                    "page": this.v_page,
+                    "per_page": this.v_per_page,
+                    "data": {
+                        "name": "",
+                        "status": 1
+                    }
+                };
+                if (typeof (name) != "undefined") {
+                    a_data.data.name = name;
+                }
+                // console.log(a_data);
+                var thisVue = this;
+                $.ajax({
+                    url: "http://localhost:8000/goodscontroller/query",
+                    type: 'POST',
+                    dateType: 'JSON',
+                    data: a_data,
+                    success: function(data){
+                        // console.log(data);
+                        if(data.status == 'success'){
+                            thisVue.total = data.data.total;
+                            thisVue.v_current_page = data.data.current_page;
+                            thisVue.v_last_page = data.data.last_page;
+                            thisVue.members = data.data.data;
+                        }else{
+                            layer.alert(data.msg);
+                        }
+                    }
+                });
+            },
+            member_bid_show: function(goods_id, goods_name, goods_total, goods_remain, bid_id) {
+                $.ajax({
+                    url: "http://localhost:8000/bidcontroller/query",
+                    type: 'POST',
+                    dateType: 'JSON',
+                    data: {
+                        "page": 1,
+                        "per_page": 1,
+                        "data": {
+                            "id": bid_id
+                        }
+                    },
+                    success: function(bid_data){
+                        // console.log(data);
+                        let company_id = bid_data.data.data[0].company_id;
+                        let price = bid_data.data.data[0].price;
+                        if(bid_data.status == 'success'){
+                            $.ajax({
+                                url: "http://localhost:8000/companycontroller/query",
+                                type: 'POST',
+                                dateType: 'JSON',
+                                data: {
+                                    "page": 1,
+                                    "per_page": 1,
+                                    "data": {
+                                        "id": company_id
+                                    }
+                                },
+                                success: function(com_data){
+                                    // console.log(data);
+                                    if(com_data.status == 'success'){
+                                        layer.alert("货物ID："+goods_id+"<br>货物名："+goods_name+"<br>货物总量："+goods_total+
+                                            "<br>货物余量："+goods_remain+"<hr>企业ID："+company_id+
+                                            "<br>企业名称："+com_data.data.data[0].name+
+                                            "<br>企业性质："+com_data.data.data[0].nature+
+                                            "<br>交易总价："+com_data.data.data[0].sum+
+                                            "<br>注册资本："+com_data.data.data[0].money+
+                                            "<br>所属企业地址："+com_data.data.data[0].address+
+                                            "<br>所属企业法人代表："+com_data.data.data[0].legal+
+                                            "<br>等级："+com_data.data.data[0].grade+
+                                            "<hr>最终竞价："+price, {
+                                            skin: 'layui-layer-lan',
+                                            closeBtn: 0,
+                                            anim: 4, //动画类型
+                                            title: '合同'
+                                        });
+                                    }else{
+                                        layer.alert(com_data.msg);
+                                    }
+                                }
+                            });
+                        }else{
+                            layer.alert(bid_data.msg);
+                        }
+                    }
+                });
+            }
+        },
+        mounted: function () { // 挂载结束状态
+            this.get_list();
+            let thisVue = this;
+            $.ajax({
+                url: "http://localhost:8000/usercontroller/get_login_user",
+                type: 'POST',
+                dateType: 'JSON',
+                success: function(data){
+                    if(data.status == 'success'){
+                        thisVue.login_role = data.data.role;
+                    }else{
+                        layer.alert(data.msg);
+                    }
+                }
+            });
+        },
+        updated: function () {
+            var thisVue = this;
+            $('#memberTable').DataTable({
+                retrieve: true,
+                // bStateSave: true, // 状态保存
+                bInfo: false,
+                bFilter: false, // 不使用过滤功能
+                bLengthChange: false, // 用户不可改变每页显示数量
+                iDisplayLength: thisVue.v_per_page, // 每页显示数据
+                ordering: false,
+                // aaSorting: [[ 1, "asc" ]], // 默认第几个排序
+                // aoColumnDefs: [
+                //     //{"bVisible": false, "aTargets": [ 3 ]} // 控制列的隐藏显示
+                //     {"orderable":false,"aTargets":[0,2,3,6,7,9,10]}// 制定列不参与排序
+                // ],
+                "drawCallback": function(settings){
+                    document.getElementById('memberTable_previous').addEventListener('click',function () {
+                        if (thisVue.v_current_page > 1) {
+                            thisVue.v_page--;
+                            thisVue.get_list();
+                            document.getElementById("memberTable_paginate")
+                                .getElementsByTagName("span")[0]
+                                .getElementsByTagName("a")[0].innerText--;
+                        }
+                    });
+                    document.getElementById('memberTable_next').addEventListener('click',function () {
+                        if (thisVue.v_current_page < thisVue.v_last_page) {
+                            thisVue.v_page++;
+                            thisVue.get_list();
+                            document.getElementById("memberTable_paginate")
+                                .getElementsByTagName("span")[0]
+                                .getElementsByTagName("a")[0].innerText++;
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+    $(function(){
+
+    });
+    /*货物-查询*/
+    function member_search(){
+        mainVue.get_list($("#name").val());
+    }
+</script>
+</body>
+</html>

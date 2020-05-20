@@ -1,0 +1,291 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <title>添加员工信息</title>
+</head>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-staff-info-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" id="username" name="username">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="password" class="input-text" placeholder="" id="password" name="password">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+				<select id="role" name="role" class="select" disabled>
+					<option value="staff" selected>员工</option>
+					<option value="saler">销售管理员</option>
+					<option value="custom">客户</option>
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" id="name" name="name">
+            </div>
+        </div>
+        <div id="hidden_job_number" class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" id="job_number" name="job_number">
+            </div>
+        </div>
+        <div id="hidden_company" class="row cl" style="display: none">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属企业：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+				<select id="company" name="company" class="select">
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="sex-1" name="sex" value="男" checked>
+                    <label for="sex-1">男</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="sex-2" name="sex" value="女">
+                    <label for="sex-2">女</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>联系电话：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" id="phone" name="phone">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>家庭地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" name="address" id="address">
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" id="button" value="添加">
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/js/getUrlParam.js"></script>
+<script type="text/javascript" src="/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var action = '';
+        var add= UrlParm.parm("add");
+        if (add != '' && typeof(add) != 'undefined') { // 添加
+            action = 'ADD';
+        }
+        var update= UrlParm.parm("update"),
+            old_id = UrlParm.parm("id"),
+            old_username = UrlParm.parm("username"),
+            old_password = UrlParm.parm("password"),
+            old_role = UrlParm.parm("role"),
+            old_name = UrlParm.parm("name"),
+            old_job_number = UrlParm.parm("job_number"),
+            old_sex = UrlParm.parm("sex"),
+            old_phone = UrlParm.parm("phone"),
+            old_address = UrlParm.parm("address");
+        $("#role").val(old_role);
+        if (old_role == 'custom') {
+            document.getElementById("hidden_job_number").style.display="none";
+            document.getElementById("hidden_company").style.display="inherit";
+            $.ajax({
+                url: "http://localhost:8000/companycontroller/query",
+                type: 'POST',
+                dateType: 'JSON',
+                data: {
+                    "page": 1,
+                    "per_page": 9999,
+                    "data": {
+                        "name": ""
+                    }
+                },
+                success: function(data){
+                    // console.log(data);
+                    if(data.status == 'success'){
+                        for (let i in data.data.data) {
+                            document.getElementById("company").options.add(new Option(data.data.data[i].name, data.data.data[i].id));
+                        }
+                        $("#company").val(UrlParm.parm("company_id"));
+                    }else{
+                        layer.alert(data.msg);
+                        setTimeout(function(){
+                            let index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        },800);
+                    }
+                }
+            });
+            old_job_number = "164596";
+            $("#job_number").val("164596");
+        }
+        if (update != '' && typeof(update) != 'undefined') { // 修改信息
+            action = 'UPDATE';
+            $("#button").val('修改');
+            $("#username").val(old_username);
+            $("#password").val(old_password);
+            $("#name").val(old_name);
+            $("#job_number").val(old_job_number);
+            if (old_sex == '男') {
+                $("#sex-1").attr("checked","checked");
+            } else if (old_sex == '女') {
+                $("#sex-2").attr("checked","checked");
+            }
+            $("#phone").val(old_phone);
+            $("#address").val(old_address);
+        }
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form-staff-info-add").validate({
+            rules:{
+                username: {
+                    required:true,
+                    minlength:6,
+                    maxlength:16
+                },
+                password:{
+                    required:true,
+                    minlength:6,
+                    maxlength:16
+                },
+                role:{
+                    required:true
+                },
+                name:{
+                    required:true,
+                    minlength:2,
+                    maxlength:16
+                },
+                job_number:{
+                    required:true,
+                },
+                sex:{
+                    required:true
+                },
+                phone:{
+                    required:true,
+                    isMobile:true
+                },
+                address:{
+                    required:true
+                },
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(){
+                var a_data = {
+                    "username": $("#username").val(),
+                    "password": $("#password").val(),
+                    "role": $("#role option:selected").val(),
+                    "name": $("#name").val(),
+                    "job_number": $("#job_number").val(),
+                    "sex": $('input:radio[name="sex"]:checked').val(),
+                    "phone": $("#phone").val(),
+                    "address" : $("#address").val()
+                };
+                // console.log(a_data);
+                if (old_role == 'custom') {
+                    a_data.company_id = $("#company option:selected").val();
+                }
+                if (action == 'ADD') {
+                    $.ajax({
+                        url: "http://localhost:8000/usercontroller/add",
+                        type: 'POST',
+                        dateType: 'JSON',
+                        data: a_data,
+                        success: function(data){
+                            // console.log(data);
+                            if(data.status == 'success'){
+                                layer.msg('添加成功');
+                                setTimeout(function(){
+                                    parent.location.reload();
+                                    // var index = parent.layer.getFrameIndex(window.name);
+                                    //parent.$('.btn-refresh').click();
+                                    // parent.layer.close(index);
+                                },800)
+                            }else{
+                                layer.alert(data.msg);
+                            }
+                        }
+                    });
+                } else if (action == 'UPDATE') {
+                    a_data.id = old_id;
+                    $.ajax({
+                        url: "http://localhost:8000/usercontroller/edit",
+                        type: 'POST',
+                        dateType: 'JSON',
+                        data: a_data,
+                        success: function(data){
+                            // console.log(data);
+                            if(data.status == 'success'){
+                                layer.msg('修改成功');
+                                setTimeout(function(){
+                                    parent.location.reload();
+                                },800)
+                            }else{
+                                layer.alert(data.msg);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

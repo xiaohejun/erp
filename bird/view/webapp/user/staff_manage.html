@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>员工信息管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 人员管理 <span class="c-gray en">&gt;</span> 员工信息管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div id="memberList" class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="member_add('添加','user_info.html?add=1&role=staff','','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a>
+			<a href="javascript:;" onclick="member_search()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe665;</i> 查询员工</a>
+            <input type="text" name="name" id="name" placeholder="员工姓名查询" style="width:140px" class="input-text">
+            <input type="text" name="job_number" id="job_number" placeholder="员工工号查询" style="width:140px" class="input-text">
+        </span>
+        <span class="r">
+            <a href="javascript:;" @click="member_del()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+            显示数据：<strong>{{members.length}}</strong> 条， 共有数据：<strong>{{total}}</strong> 条
+        </span>
+    </div>
+    <div class="mt-20">
+        <table id="memberTable" class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25">
+                    <!--<input type="checkbox" v-model="selectAll" @click="membersSelectAll()">-->
+                </th>
+                <th width="30">ID</th>
+                <!--<th width="70">角色</th>-->
+                <th width="100">用户名</th>
+                <th width="100">密码</th>
+                <th width="80">姓名</th>
+                <th width="90">工号</th>
+                <th width="40">性别</th>
+                <th width="100">联系电话</th>
+                <th>家庭地址</th>
+                <th width="50">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" v-for="(item,index) in members" :key="index">
+                <td><input type="checkbox" :id="'item'+item.id" :value="item.id" v-model="checkedItems"></td>
+                <td>{{item.id}}</td>
+                <!--<td>{{item.role}}</td>-->
+                <td>{{item.username}}</td>
+                <td>{{item.password}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.job_number}}</td>
+                <td>{{item.sex}}</td>
+                <td>{{item.phone}}</td>
+                <td>{{item.address}}</td>
+                <td class="td-manage">
+                    <a title="修改" href="javascript:;" @click="member_edit('修改','user_info.html?update=1',index,'','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;" @click="member_del(index)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/js/vue.min.js"></script>
+<script type="text/javascript" src="/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    window.mainVue = new Vue({
+        el: '#memberList',
+        data: {
+            total: 0,
+            v_page: 1,
+            v_per_page: 10,
+            v_current_page: 1,
+            v_last_page: 1,
+            members: [],
+            checkedItems: []
+        },
+        computed: {
+        },
+        watch: {
+        },
+        methods: {
+            get_list: function (name, job_number) {
+                var a_data = {
+                    "page": this.v_page,
+                    "per_page": this.v_per_page,
+                    "data": {
+                        "role": "staff",
+                        "name": "",
+                        "job_number": ""
+                    }
+                };
+                if (name != "" && typeof (name) != "undefined") {
+                    a_data.data.name = name;
+                }
+                if (job_number != "" && typeof (job_number) != "undefined") {
+                    a_data.data.job_number = job_number;
+                }
+                // console.log(a_data);
+                var thisVue = this;
+                $.ajax({
+                    url: "http://localhost:8000/usercontroller/query",
+                    type: 'POST',
+                    dateType: 'JSON',
+                    data: a_data,
+                    success: function(data){
+                        // console.log(data);
+                        if(data.status == 'success'){
+                            thisVue.total = data.data.total;
+                            thisVue.v_current_page = data.data.current_page;
+                            thisVue.v_last_page = data.data.last_page;
+                            thisVue.members = data.data.data;
+                        }else{
+                            layer.alert(data.msg);
+                        }
+                    }
+                });
+            },
+            member_edit: function(title,url,index,w,h) {
+                url += '&id=' + this.members[index].id + '&username=' + this.members[index].username + '&password=' + this.members[index].password +
+                    '&role=' + this.members[index].role + '&name=' + this.members[index].name + '&job_number=' + this.members[index].job_number +
+                    '&sex=' + this.members[index].sex + '&phone=' + this.members[index].phone + '&address=' + this.members[index].address;
+                layer_show(title,url,w,h);
+            },
+            member_del: function (index) {
+                var ids = [];
+                if (typeof (index) == "undefined") {
+                    if (this.checkedItems.length == 0) {
+                        layer.alert("请选择删除的目标");
+                        return;
+                    } else {
+                        ids = this.checkedItems;
+                    }
+                } else {
+                    ids = [this.members[index].id];
+                }
+                // console.log(ids);
+                var thisVue = this, thisIndex = index;
+                layer.confirm('确认要删除吗？', {icon: 0, title:'提示'}, function(index){
+                    $.ajax({
+                        url: "http://localhost:8000/usercontroller/delete",
+                        type: 'POST',
+                        dateType: 'JSON',
+                        data: {
+                            "ids": ids
+                        },
+                        success: function(data){
+                            // console.log(data);
+                            if(data.status == 'success'){
+                                // thisVue.members.splice(thisIndex,1);
+                                thisVue.get_list();
+                                layer.close(index);
+                            }else{
+                                layer.alert(data.msg);
+                            }
+                        }
+                    });
+                });
+            }
+        },
+        mounted: function () { // 挂载结束状态
+            this.get_list();
+        },
+        updated: function () {
+            var thisVue = this;
+            $('#memberTable').DataTable({
+                retrieve: true,
+                // bStateSave: true, // 状态保存
+                bInfo: false,
+                bFilter: false, // 不使用过滤功能
+                bLengthChange: false, // 用户不可改变每页显示数量
+                iDisplayLength: thisVue.v_per_page, // 每页显示数据
+                ordering: false,
+                // aaSorting: [[ 1, "asc" ]], // 默认第几个排序
+                // aoColumnDefs: [
+                //     //{"bVisible": false, "aTargets": [ 3 ]} // 控制列的隐藏显示
+                //     {"orderable":false,"aTargets":[0,2,3,6,7,9,10]}// 制定列不参与排序
+                // ],
+                "drawCallback": function(settings){
+                    document.getElementById('memberTable_previous').addEventListener('click',function () {
+                        if (thisVue.v_current_page > 1) {
+                            thisVue.v_page--;
+                            thisVue.get_list();
+                            document.getElementById("memberTable_paginate")
+                                .getElementsByTagName("span")[0]
+                                .getElementsByTagName("a")[0].innerText--;
+                        }
+                    });
+                    document.getElementById('memberTable_next').addEventListener('click',function () {
+                        if (thisVue.v_current_page < thisVue.v_last_page) {
+                            thisVue.v_page++;
+                            thisVue.get_list();
+                            document.getElementById("memberTable_paginate")
+                                .getElementsByTagName("span")[0]
+                                .getElementsByTagName("a")[0].innerText++;
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+    $(function(){
+
+    });
+    /*用户-添加*/
+    function member_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-查询*/
+    function member_search(){
+        mainVue.get_list($("#name").val(), $("#job_number").val());
+    }
+</script>
+</body>
+</html>
